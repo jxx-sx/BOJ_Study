@@ -7,13 +7,11 @@ int *arr;
 
 bool check(int length) {
     for (int i = 0; i < length; i++) {
-        for (int j = i + 1; j < length; j++) {
-            if (arr[i] == arr[j]) {
-                return false;
-            }
-            if (abs(arr[i] - arr[j]) == abs(j - i)) {
-                return false;
-            }
+        if (arr[i] == arr[length]) {
+            return false;
+        }
+        if (abs(arr[i] - arr[length]) == abs(length - i)) {
+            return false;
         }
     }
     return true;
@@ -26,7 +24,7 @@ void dfs(int length) {
     }
     for (int i = 0; i < n; i++) {
         arr[length] = i;
-        if (check(length + 1)) {
+        if (check(length)) {
             dfs(length + 1);
         } else {
         }
