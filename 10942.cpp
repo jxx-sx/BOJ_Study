@@ -31,8 +31,8 @@ int main() {
     for (int i = 0; i < k; i++) {
         cin >> s >> e;
         if (dp[s - 1][e - 1])
-            cout << 1;
+            cout << "1\n";
         else
-            cout << 0;
+            cout << "0\n";
     }
 }
