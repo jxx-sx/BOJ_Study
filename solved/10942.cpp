@@ -21,11 +21,10 @@ int main() {
         dp[i][i + 1] = arr[i] == arr[i + 1];
     }
 
-    for (int j = 2; j < n - 1; j++) {
-        for (int i = 0; i < n - j; i++) {
-            dp[i][i + j] = dp[i + 1][i + j - 1] and (arr[i] == arr[i + j]);
-        }
-    }
+    for (int i = n - 1; i >= 0; i--)
+        for (int j = i + 2; j < n; j++)
+            dp[i][j] = arr[i] == arr[j] && dp[i + 1][j - 1];
+
     int k, s, e;
     cin >> k;
     for (int i = 0; i < k; i++) {
