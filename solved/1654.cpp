@@ -21,7 +21,7 @@ int main() {
     long long r = v.back();
     long long ans = 0;
 
-    while (l <= k) {
+    while (l <= r) {
         long long m = (l + r) / 2;
         long long cnt = 0;
         for (int i = 0; i < k; i++) {
