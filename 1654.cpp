@@ -27,11 +27,10 @@ int main() {
         for (int i = 0; i < k; i++) {
             cnt += v[i] / m;
         }
-        if (cnt == n) {
-            ans = max(ans, m);
-        }
         if (cnt >= n) {
             l = m + 1;
+            ans = max(ans, m);
+
         } else {
             r = m - 1;
         }
