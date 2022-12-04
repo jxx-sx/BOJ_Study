@@ -5,23 +5,25 @@
 using namespace std;
 
 int k, n;
-vector<int> v;
+vector<long long> v;
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cin >> k >> n;
-    int tmp;
+    long long tmp;
     for (int i = 0; i < k; i++) {
         cin >> tmp;
         v.push_back(tmp);
     }
     sort(v.begin(), v.end());
-    int l = 1;
-    int r = v.back();
-    int ans = 0;
-    while (l < k) {
-        int m = (l + r) / 2;
-        int cnt = 0;
+
+    long long l = 1;
+    long long r = v.back();
+    long long ans = 0;
+
+    while (l <= k) {
+        long long m = (l + r) / 2;
+        long long cnt = 0;
         for (int i = 0; i < k; i++) {
             cnt += v[i] / m;
         }
