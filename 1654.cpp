@@ -28,7 +28,7 @@ int main() {
         if (cnt == n) {
             ans = max(ans, m);
         }
-        if (cnt > n) {
+        if (cnt >= n) {
             l = m + 1;
         } else {
             r = m - 1;
