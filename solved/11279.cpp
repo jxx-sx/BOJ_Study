@@ -15,7 +15,7 @@ int main() {
         cin >> inp;
         if (inp == 0) {
             if (pq.empty())
-                cout << 0;
+                cout << 0 << '\n';
             else {
                 cout << pq.top() << '\n';
                 pq.pop();
