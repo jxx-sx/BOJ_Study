@@ -5,3 +5,4 @@
 # Unignore all dirs
 !*/
 .vscode/launch.json
+._test.cpp
