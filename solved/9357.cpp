@@ -30,6 +30,7 @@ int main() {
                     break;
                 }
             }
+
             if (f != -1) {
                 c[f] += 1;
             } else {
@@ -40,7 +41,7 @@ int main() {
 
         long long ans = 1;
         for (int j = 0; j < c.size(); j++)
-            ans *= c[i];
+            ans *= c[j];
 
         cout << ans - 1 << '\n';
     }
