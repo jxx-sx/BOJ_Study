@@ -17,7 +17,7 @@ int main() {
         v.clear();
         c.clear();
         if (m == 0) {
-            cout << 0;
+            cout << 0 << '\n';
             continue;
         }
         for (int j = 0; j < m; j++) {
@@ -37,10 +37,11 @@ int main() {
                 c.push_back(2);
             }
         }
+
         long long ans = 1;
-        for (int j = 0; j < c.size(); j++) {
+        for (int j = 0; j < c.size(); j++)
             ans *= c[i];
-        }
+
         cout << ans - 1 << '\n';
     }
 }
