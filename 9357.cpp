@@ -37,8 +37,8 @@ int main() {
                 c.push_back(2);
             }
         }
-        int ans = 1;
-        for (int i = 0; i < c.size(); i++) {
+        long long ans = 1;
+        for (int j = 0; j < c.size(); j++) {
             ans *= c[i];
         }
         cout << ans - 1 << '\n';
