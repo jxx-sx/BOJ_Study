@@ -10,7 +10,7 @@ int dp[501][501];
 
 void solve() {
     int tmp;
-    for (int j = 2; j <= n; j++) {
+    for (int j = 3; j <= n; j++) {
         for (int i = 0; i + j <= n; i++) {
             for (int k = i; k <= i + j; k++) {
                 tmp = dp[i][k] + dp[k][i + j] + arr[i] * arr[k] * arr[i + j];
@@ -34,6 +34,11 @@ void init() {
         cin >> s >> e;
         arr[i + 1] = e;
     }
+
+    for (int i = 0; i + 2 <= n; i++) {
+        dp[i][i + 2] = arr[i] * arr[i + 1] * arr[i + 2];
+    }
+
     solve();
     cout << dp[0][n];
 }
