@@ -8,12 +8,15 @@ vector<int> v;
 int ans;
 
 void solve() {
-    ans = s;
+    ans = 0;
     int lp = 0, rp = 0;
     int sum = 0;
     while (true) {
         if (sum >= s) {
-            ans = min(ans, rp - lp);
+            if (ans == 0)
+                ans = rp - lp;
+            else
+                ans = min(ans, rp - lp);
             if (lp == v.size())
                 break;
             sum -= v[lp];
