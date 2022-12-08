@@ -10,6 +10,7 @@ void solve() {
     priority_queue<int> pq;
     int next, cur, cnt = 0;
     pq.push(1);
+    check[1] = true;
     while (true) {
         priority_queue<int> tmp;
         while (!pq.empty()) {
@@ -25,7 +26,10 @@ void solve() {
                     next = cur + i;
                     if (arr[next])
                         next = arr[next];
-                    tmp.push(next);
+                    if (!check[next]) {
+                        tmp.push(next);
+                        check[next] = true;
+                    }
                 }
             }
         }
