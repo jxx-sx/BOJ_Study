@@ -12,8 +12,8 @@ void solve() {
     int tmp;
     for (int j = 1; j < n; j++) {
         for (int i = 0; i + j < n; i++) {
-            for (int k = 0; k < j; k++) {
-                tmp = dp[i][i + k] + dp[i + k + 1][i + j] + arr[i] * arr[k + 1] * arr[i + j + 1];
+            for (int k = i; k < i + j; k++) {
+                tmp = dp[i][k] + dp[k + 1][i + j] + arr[i] * arr[k + 1] * arr[i + j + 1];
                 if (dp[i][i + j] == 0)
                     dp[i][i + j] = tmp;
                 dp[i][i + j] = min(dp[i][i + j], tmp);
