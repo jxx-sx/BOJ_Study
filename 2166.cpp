@@ -6,8 +6,6 @@ int n;
 int xx[10000], yy[10000];
 
 void solve() {
-    int x = xx[n - 1]; // fixed
-    int y = yy[n - 1]; // fixed
     long long tmp = 0;
 
     for (int i = 0; i < n - 1; i++) {
@@ -15,11 +13,11 @@ void solve() {
     }
     tmp += xx[n - 1] * yy[0] - xx[0] * yy[n - 1];
 
-    long double ans = abs(tmp) / 2.0;
+    long double ans = abs(tmp) * 5.0;
     round(ans);
     cout << fixed;
     cout.precision(1);
-    cout << ans;
+    cout << ans / 10.0;
 }
 
 void init() {
