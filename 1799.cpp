@@ -4,48 +4,53 @@
 using namespace std;
 
 int n;
-int **arr;
 vector<pair<int, int>> v, b;
 int v_ind = 0;
 int ans = 0, dep = 0;
 
 void solve(int x, int y) {
-    if (v_ind != v.size()) {
-        v_ind++;
-        solve(v[v_ind].first, v[v_ind].second);
+    if (v.size() - v_ind + dep <= ans) {
+        v_ind--;
+        return;
     }
-
+    bool flag = false;
     for (auto cur : b) {
         if (abs(cur.first - x) == abs(cur.second - y)) {
-            v_ind--;
-            return;
+            flag = true;
+            break;
         }
     }
 
-    b.push_back({x, y});
-    dep++;
+    if (!flag) {
+        b.push_back({x, y});
+        dep++;
+        ans = max(ans, dep);
 
-    ans = max(ans, dep);
+        if (v_ind != v.size()) {
+            v_ind++;
+            solve(v[v_ind].first, v[v_ind].second);
+        }
+
+        b.pop_back();
+        dep--;
+    }
 
     if (v_ind != v.size()) {
         v_ind++;
         solve(v[v_ind].first, v[v_ind].second);
     }
 
-    b.pop_back();
     v_ind--;
-    dep--;
     return;
 }
 
 void init() {
+    int inp;
     cin >> n;
-    arr = new int *[n];
     for (int i = 0; i < n; i++) {
-        arr[i] = new int[n];
         for (int j = 0; j < n; j++) {
-            cin >> arr[i][j];
-            if (arr[i][j] == 1) {
+            cin >> inp;
+            if (inp == 1) {
                 v.push_back({i, j});
             }
         }
