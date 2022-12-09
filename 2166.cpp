@@ -9,20 +9,11 @@ void solve() {
     int x = xx[n - 1];
     int y = yy[n - 1];
     int a, b, c; // a*x + b*y + c = 0
-    double dis;
+    double tmp;
     double ans = 0.0;
     for (int i = 0; i < n - 2; i++) {
-        a = yy[i + 1] - yy[i];
-        b = xx[i] - xx[i + 1];
-        c = (-a) * xx[i] + (-b) * yy[i];
-        if (a == 0 and b == 0)
-            continue;
-        dis = abs(a * x + b * y + c) / sqrt(a * a + b * b);
-        int tmp = pow(xx[i + 1] - xx[i], 2) + pow(yy[i + 1] - yy[i], 2);
-        if (tmp == 0) {
-            continue;
-        }
-        ans += dis * sqrt(tmp) * 5;
+        tmp = abs(xx[i] * yy[i + 1] + xx[i + 1] * y + x * yy[i] - xx[i + 1] * yy[i] - x * yy[i + 1] - xx[i] * y) / 2.0;
+        ans += tmp * 10;
     }
     cout << fixed;
     cout.precision(1);
