@@ -13,10 +13,11 @@ long long ans = 0;
 void solve() {
     int i = 0;
     for (auto a : bag) {
-        for (; i < v.size(); i++) {
-            if (v[i].first < a)
+        while (i < v.size()) {
+            if (v[i].first <= a) {
                 pq.push(v[i].second);
-            else
+                i++;
+            } else
                 break;
         }
         if (!pq.empty()) {
