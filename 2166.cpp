@@ -8,16 +8,18 @@ int xx[10000], yy[10000];
 void solve() {
     int x = xx[n - 1]; // fixed
     int y = yy[n - 1]; // fixed
-    long double ans = 0.0;
+    long long tmp = 0;
 
-    for (int i = 0; i < n - 2; i++) {
-        ans += (xx[i] * yy[i + 1] + xx[i + 1] * y + x * yy[i] - xx[i + 1] * yy[i] - x * yy[i + 1] - xx[i] * y) * 5.0;
+    for (int i = 0; i < n - 1; i++) {
+        tmp += xx[i] * yy[i + 1] - xx[i + 1] * yy[i];
     }
-    round(ans);
+    tmp += xx[n - 1] * yy[0] - xx[0] * yy[n - 1];
 
+    long double ans = abs(tmp) / 2.0;
+    round(ans);
     cout << fixed;
     cout.precision(1);
-    cout << round(ans) / 10.0;
+    cout << ans;
 }
 
 void init() {
