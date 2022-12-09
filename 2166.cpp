@@ -15,8 +15,14 @@ void solve() {
         a = yy[i + 1] - yy[i];
         b = xx[i] - xx[i + 1];
         c = (-a) * xx[i] + (-b) * yy[i];
+        if (a == 0 and b == 0)
+            continue;
         dis = abs(a * x + b * y + c) / sqrt(a * a + b * b);
-        ans += dis * sqrt(pow(xx[i + 1] - xx[i], 2) + pow(yy[i + 1] - yy[i], 2)) * 5;
+        int tmp = pow(xx[i + 1] - xx[i], 2) + pow(yy[i + 1] - yy[i], 2);
+        if (tmp == 0) {
+            continue;
+        }
+        ans += dis * sqrt(tmp) * 5;
     }
     cout << fixed;
     cout.precision(1);
