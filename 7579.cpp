@@ -11,15 +11,19 @@ void solve() {
     int arr[n + 1][sumM - m + 1];
     for (int i = 0; i < n + 1; i++)
         for (int j = 0; j <= sumM - m; j++)
-            arr[i][j] = sumC;
+            arr[i][j] = 0;
 
     for (int i = 1; i < n + 1; i++) {
-        for (int j = vM[i - 1]; j <= sumM - m; j++) {
-            arr[i][j] = min(arr[i - 1][j - vM[i - 1]] - vC[i - 1], arr[i - 1][j]);
+        for (int j = 1; j <= sumM - m; j++) {
+            if (j >= vM[i - 1])
+                arr[i][j] = max(arr[i - 1][j - vM[i - 1]] + vC[i - 1], arr[i - 1][j]);
+            else {
+                arr[i][j] = arr[i - 1][j];
+            }
         }
     }
 
-    cout << arr[n][sumM - m];
+    cout << sumC - arr[n][sumM - m];
 }
 
 void init() {
@@ -30,6 +34,7 @@ void init() {
         vM.push_back(inp);
         sumM += inp;
     }
+
     for (int i = 0; i < n; i++) {
         cin >> inp;
         vC.push_back(inp);
