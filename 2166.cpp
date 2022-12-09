@@ -9,11 +9,15 @@ void solve() {
     long long ans = 0;
 
     for (int i = 0; i < n; i++) {
-        ans += xx[i] * yy[i + 1] - xx[i + 1] * yy[i];
+        ans += xx[i] * yy[i + 1];
+        ans -= xx[i + 1] * yy[i];
     }
-    ans = abs(ans) * 5.0;
+    ans = abs(ans);
+    int tmp = 0;
+    if (ans % 2 == 1)
+        tmp = 5;
     round(ans);
-    cout << ans / 10 << '.' << ans % 10;
+    cout << ans / 2 << '.' << tmp;
 }
 
 void init() {
