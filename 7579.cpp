@@ -4,28 +4,21 @@
 
 using namespace std;
 
-int n, m, ans = 0;
-vector<pair<int, int>> v;
+int n, m, sumM = 0, sumC = 0;
+vector<int> vM, vC;
 
 void solve() {
-    int lp = 0, rp = 0;
-    int sum = 0, c_sum = 0;
-    while (true) {
-        if (sum >= m) {
-            ans = min(ans, c_sum);
-            if (lp == v.size())
-                break;
-            sum -= v[lp].first;
-            c_sum -= v[lp].second;
-            lp += 1;
-        } else {
-            if (rp == v.size())
-                break;
-            sum += v[rp].first;
-            c_sum += v[rp].second;
-            rp += 1;
+    int arr[n + 1][sumM - m + 1];
+    for (int i = 0; i < n + 1; i++)
+        for (int j = 0; j <= sumM - m; j++)
+            arr[i][j] = sumC;
+    for (int i = 1; i < n + 1; i++)
+        for (int j = 1; j <= sumM - m; j++) {
+            if (j >= vM[i - 1]) {
+                arr[i][j] = min(arr[i - 1][j - vM[i - 1]] - vC[i - 1], arr[i - 1][j]);
+            }
         }
-    }
+    cout << arr[n][sumM - m];
 }
 
 void init() {
@@ -33,17 +26,17 @@ void init() {
     cin >> n >> m;
     for (int i = 0; i < n; i++) {
         cin >> inp;
-        v.push_back({inp, 0});
+        vM.push_back(inp);
+        sumM += inp;
     }
     for (int i = 0; i < n; i++) {
         cin >> inp;
-        v[i].second = inp;
-        ans += inp;
+        vC.push_back(inp);
+        sumC += inp;
     }
-    sort(v.begin(), v.end());
 
+    sort(vM.begin(), vM.end());
     solve();
-    cout << ans;
 }
 
 int main() {
