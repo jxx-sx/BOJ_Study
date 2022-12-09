@@ -4,3 +4,10 @@
 
 [![Solved.ac 프로필](http://mazassumnida.wtf/api/v2/generate_badge?boj=jaesang00)](https://solved.ac/jaesang00)
 <img src="http://mazandi.herokuapp.com/api?handle=jaesang00&theme=warm"/>
+
+### CLASS
+CLASS 1++
+CLASS 2+
+CLASS 3
+CLASS 4
+CLASS 5 ing
