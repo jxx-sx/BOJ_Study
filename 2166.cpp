@@ -3,27 +3,25 @@
 
 using namespace std;
 int n;
-int xx[10000], yy[10000];
+int xx[10001], yy[10001];
 
 void solve() {
-    long long tmp = 0;
+    long long ans = 0;
 
-    for (int i = 0; i < n - 1; i++) {
-        tmp += xx[i] * yy[i + 1] - xx[i + 1] * yy[i];
+    for (int i = 0; i < n; i++) {
+        ans += xx[i] * yy[i + 1] - xx[i + 1] * yy[i];
     }
-    tmp += xx[n - 1] * yy[0] - xx[0] * yy[n - 1];
-
-    long double ans = abs(tmp) * 5.0;
+    ans = abs(ans) * 5.0;
     round(ans);
-    cout << fixed;
-    cout.precision(1);
-    cout << ans / 10.0;
+    cout << ans / 10 << '.' << ans % 10;
 }
 
 void init() {
     cin >> n;
     for (int i = 0; i < n; i++)
         cin >> xx[i] >> yy[i];
+    xx[n] = xx[0];
+    yy[n] = yy[0];
     solve();
 }
 
