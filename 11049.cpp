@@ -10,16 +10,18 @@ int dp[501][501];
 
 void solve() {
     int tmp;
-    for (int j = 3; j <= n; j++) {
-        for (int i = 0; i + j <= n; i++) {
-            for (int k = i; k <= i + j; k++) {
-                tmp = dp[i][k] + dp[k][i + j] + arr[i] * arr[k] * arr[i + j];
-                if (dp[i][j] == 0)
-                    dp[i][j] = tmp;
-                dp[i][j] = min(dp[i][j], tmp);
+    for (int j = 1; j < n; j++) {
+        for (int i = 0; i + j < n; i++) {
+            for (int k = 0; k < j; k++) {
+                tmp = dp[i][i + k] + dp[i + k + 1][i + j] + arr[i] * arr[k + 1] * arr[i + j + 1];
+                if (dp[i][i + j] == 0)
+                    dp[i][i + j] = tmp;
+                dp[i][i + j] = min(dp[i][i + j], tmp);
             }
         }
     }
+
+    cout << dp[0][n - 1];
 }
 
 void init() {
@@ -35,12 +37,7 @@ void init() {
         arr[i + 1] = e;
     }
 
-    for (int i = 0; i + 2 <= n; i++) {
-        dp[i][i + 2] = arr[i] * arr[i + 1] * arr[i + 2];
-    }
-
     solve();
-    cout << dp[0][n];
 }
 
 int main() {
