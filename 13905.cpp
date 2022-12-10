@@ -19,6 +19,7 @@ int find_root(int x) {
 void union_root(int a, int b) {
     a = find_root(a);
     b = find_root(b);
+
     if (r[a] > r[b]) {
         r[a]++;
         p[b] = a;
@@ -30,17 +31,24 @@ void union_root(int a, int b) {
 
 void solve() {
     int h1, h2, k;
-    int ans = 1000000;
-    while (find_root(s) != find_root(e)) {
+    int ans = 0;
+    while (edges.size()) {
         h1 = edges.back().second.first;
         h2 = edges.back().second.second;
         k = edges.back().first;
         edges.pop_back();
-        
+
         if (find_root(h1) != find_root(h2)) {
             union_root(h1, h2);
-            ans = min(ans, k);
+
+            if (ans)
+                ans = min(ans, k);
+            else
+                ans = k;
         }
+
+        if (find_root(s) == find_root(e))
+            break;
     }
     cout << ans;
 }
@@ -55,7 +63,7 @@ void init() {
 
     for (int i = 0; i < m; i++) {
         cin >> a >> b >> c;
-        edges.push_back({a, {b, c}});
+        edges.push_back({c, {a, b}});
     }
 
     sort(edges.begin(), edges.end());
