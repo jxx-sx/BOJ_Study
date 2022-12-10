@@ -31,7 +31,7 @@ void union_root(int a, int b) {
 
 void solve() {
     int h1, h2, k;
-    int ans = 0;
+    int ans = 0, mst = 0;
     while (edges.size()) {
         h1 = edges.back().second.first;
         h2 = edges.back().second.second;
@@ -40,17 +40,23 @@ void solve() {
 
         if (find_root(h1) != find_root(h2)) {
             union_root(h1, h2);
-
+            mst++;
             if (ans)
                 ans = min(ans, k);
             else
                 ans = k;
         }
 
+        if (mst == n - 1)
+            break;
+
         if (find_root(s) == find_root(e))
             break;
     }
-    cout << ans;
+    if (find_root(s) != find_root(e))
+        cout << 0;
+    else
+        cout << ans;
 }
 
 void init() {
