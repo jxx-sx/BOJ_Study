@@ -6,16 +6,17 @@
 <img src="http://mazandi.herokuapp.com/api?handle=jaesang00&theme=warm"/>
 
 ### solved.ac CLASS
+
 > CLASS 1++  
-> CLASS 2+  
+> CLASS 2++  
 > CLASS 3  
 > CLASS 4  
-> CLASS 5  
+> CLASS 5
 
 ### 진행중
-> CLASS 2++  
+
 > CLASS 3+  
 > CLASS 4+  
 > CLASS 5+  
 > CLASS 6  
-> B4 All solve  
+> B4 All solve
