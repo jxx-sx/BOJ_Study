@@ -12,10 +12,10 @@ void solve(int l, int h) {
         for (int j = 0; j < n; j++) {
             for (int k = 0; k < m; k++) {
                 if (arr[j][k] < i) {
-                    b -= i - arr[j][k];
+                    tmp -= i - arr[j][k];
                     time += i - arr[j][k];
                 } else {
-                    b += arr[j][k] - i;
+                    tmp += arr[j][k] - i;
                     time += 2 * (arr[j][k] - i);
                 }
             }
