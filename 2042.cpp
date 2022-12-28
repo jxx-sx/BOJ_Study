@@ -43,7 +43,7 @@ void init() {
 }
 
 void solve() {
-    int a, b, c;
+    long long a, b, c;
     for (int i = 0; i < m + k; i++) {
         cin >> a >> b >> c;
         if (a == 1)
