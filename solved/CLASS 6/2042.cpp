@@ -9,7 +9,7 @@ int n, m, k;
 long long sum(int index, int s, int e, int l, int r) {
     if (s > r or e < l)
         return 0;
-    if (s >= l and e <= r)
+    if (l <= s and e <= r)
         return segment_tree[index];
     return sum(index * 2, s, (s + e) / 2, l, r) + sum(index * 2 + 1, (s + e) / 2 + 1, e, l, r);
 }
@@ -49,7 +49,7 @@ void solve() {
         if (a == 1)
             update(b - 1, c);
         else
-            cout << sum(1, 0, n - 1, b - 1, c - 1);
+            cout << sum(1, 0, n - 1, b - 1, c - 1) << '\n';
     }
 }
 
