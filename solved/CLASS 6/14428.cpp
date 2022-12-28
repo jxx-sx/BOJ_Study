@@ -7,15 +7,15 @@ int n, m;
 
 int query(int index, int s, int e, int l, int r) {
     if (e < l or r < s)
-        return 0;
+        return -1;
     if (l <= s and e <= r)
         return tree[index];
     int left_query = query(index * 2, s, (s + e) / 2, l, r);
     int right_query = query(index * 2 + 1, (s + e) / 2 + 1, e, l, r);
 
-    if (!left_query)
+    if (left_query == -1)
         return right_query;
-    else if (!right_query)
+    else if (right_query == -1)
         return left_query;
     else {
         int l_data = tree_data[left_query];
