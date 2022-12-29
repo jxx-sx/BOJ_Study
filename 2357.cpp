@@ -3,33 +3,30 @@
 
 using namespace std;
 vector<pair<int, int>> tree;
-vector<int> tree_data, data_index;
+vector<int> tree_data;
 int n, m;
 
 pair<int, int> find_min_max(int index, int s, int e, int l, int r) {
     if (e < l or r < s)
-        return {-1, -1};
+        return make_pair(-1, -1);
     if (l <= s and e <= r)
         return tree[index];
     pair<int, int> l_c = find_min_max(index * 2, s, (s + e) / 2, l, r);
     pair<int, int> r_c = find_min_max(index * 2 + 1, (s + e) / 2 + 1, e, l, r);
-    if (l_c.first != -1 and r_c.first != -1) {
-        int l_data = tree_data[l_c.first] <= tree_data[r_c.first] ? l_c.first : r_c.first;
-        int r_data = tree_data[l_c.second] >= tree_data[r_c.second] ? l_c.second : r_c.second;
+    if (l_c == make_pair(-1, -1))
+        return r_c;
+    else if (r_c == make_pair(-1, -1))
+        return l_c;
+    else {
+        int l_data = tree_data[l_c.first] < tree_data[r_c.first] ? l_c.first : r_c.first;
+        int r_data = tree_data[l_c.second] > tree_data[r_c.second] ? l_c.second : r_c.second;
         return tree[index] = {l_data, r_data};
-    } else {
-        if (l_c.first == -1)
-            return r_c;
-        else
-            return l_c;
     }
 }
 
 pair<int, int> tree_init(int index, int s, int e) {
-    if (s == e) {
-        data_index[s] = index;
-        return tree[index] = {s, s};
-    }
+    if (s == e)
+        return tree[index] = {s, s}; //{min_index, max_index}
 
     pair<int, int> l_c = tree_init(index * 2, s, (s + e) / 2);
     pair<int, int> r_c = tree_init(index * 2 + 1, (s + e) / 2 + 1, e);
@@ -42,7 +39,6 @@ void init() {
     cin >> n >> m;
     tree = vector<pair<int, int>>(n * 4, {0, 0});
     tree_data = vector<int>(n, 0);
-    data_index = vector<int>(n, 0);
     for (int i = 0; i < n; i++)
         cin >> tree_data[i];
     tree_init(1, 0, n - 1);
