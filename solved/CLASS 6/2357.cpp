@@ -20,7 +20,7 @@ pair<int, int> find_min_max(int index, int s, int e, int l, int r) {
     else {
         int l_data = tree_data[l_c.first] < tree_data[r_c.first] ? l_c.first : r_c.first;
         int r_data = tree_data[l_c.second] > tree_data[r_c.second] ? l_c.second : r_c.second;
-        return tree[index] = {l_data, r_data};
+        return make_pair(l_data, r_data);
     }
 }
 
