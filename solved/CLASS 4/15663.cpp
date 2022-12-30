@@ -5,7 +5,7 @@
 using namespace std;
 int n, m;
 vector<bool> check = vector<bool>(8, false);
-vector<int> datas, ans;
+vector<int> data_set, ans;
 vector<int> isUsed[8];
 
 void dfs(int x, int l) {
@@ -13,19 +13,20 @@ void dfs(int x, int l) {
         return;
 
     if (!isUsed[l].empty())
-        if (isUsed[l].back() == datas[x])
+        if (isUsed[l].back() == data_set[x])
             return;
 
     check[x] = true;
     ans.push_back(x);
-    isUsed[l].push_back(datas[x]);
+    isUsed[l].push_back(data_set[x]);
     l += 1;
 
     if (l == m) {
         for (auto i : ans)
-            cout << datas[i] << ' ';
+            cout << data_set[i] << ' ';
         cout << '\n';
     } else {
+        isUsed[l].clear();
         for (int i = 0; i < n; i++) {
             dfs(i, l);
         }
@@ -42,9 +43,9 @@ void init() {
     int num;
     for (int i = 0; i < n; i++) {
         cin >> num;
-        datas.push_back(num);
+        data_set.push_back(num);
     }
-    sort(datas.begin(), datas.end());
+    sort(data_set.begin(), data_set.end());
 }
 
 void solve() {
