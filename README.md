@@ -13,7 +13,7 @@
 > CLASS 4  
 > CLASS 5
 
-### 진행중
+### 도전중
 
 > CLASS 3+  
 > CLASS 4+  
