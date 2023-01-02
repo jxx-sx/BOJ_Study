@@ -3,12 +3,13 @@
 
 using namespace std;
 int n, k, ans = 0;
+vector<bool> is_visit = vector<bool>(100100, false);
 vector<int> v;
 
 void init() {
     cin >> n >> k;
     v.push_back(n);
-
+    is_visit[n] = true;
     return;
 }
 
@@ -20,9 +21,21 @@ void solve() {
                 cout << ans;
                 return;
             } else {
-                tmp.push_back(a + 1);
-                tmp.push_back(a - 1);
-                tmp.push_back(a * 2);
+                if (a + 1 < 100100 and a < k)
+                    if (!is_visit[a + 1]) {
+                        tmp.push_back(a + 1);
+                        is_visit[a + 1] = true;
+                    }
+                if (a > k)
+                    if (!is_visit[a - 1]) {
+                        tmp.push_back(a - 1);
+                        is_visit[a - 1] = true;
+                    }
+                if (a * 2 < 100100 and a < k)
+                    if (!is_visit[a * 2]) {
+                        tmp.push_back(a * 2);
+                        is_visit[a * 2] = true;
+                    }
             }
         }
         ans += 1;
