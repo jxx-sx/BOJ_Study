@@ -21,20 +21,18 @@ void solve() {
                 cout << ans;
                 return;
             } else {
-                if (a + 1 < 100100)
-                    if (!is_visit[a + 1]) {
-                        tmp.push_back(a + 1);
-                        is_visit[a + 1] = true;
-                    }
-                if (!is_visit[a - 1]) {
+                if (!is_visit[a + 1] and a + 1 < 100100) {
+                    tmp.push_back(a + 1);
+                    is_visit[a + 1] = true;
+                }
+                if (!is_visit[a - 1] and a > 1) {
                     tmp.push_back(a - 1);
                     is_visit[a - 1] = true;
                 }
-                if (a * 2 < 100100)
-                    if (!is_visit[a * 2]) {
-                        tmp.push_back(a * 2);
-                        is_visit[a * 2] = true;
-                    }
+                if (!is_visit[a * 2] and a * 2 < 100100) {
+                    tmp.push_back(a * 2);
+                    is_visit[a * 2] = true;
+                }
             }
         }
         ans += 1;
