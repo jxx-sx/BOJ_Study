@@ -14,28 +14,18 @@ void init() {
 
 void solve() {
     while (true) {
-        ans += 1;
         vector<int> tmp;
         for (auto a : v) {
-            if (a + 1 == k) {
+            if (a == k) {
                 cout << ans;
                 return;
             } else {
                 tmp.push_back(a + 1);
-            }
-            if (a - 1 == k) {
-                cout << ans;
-                return;
-            } else {
                 tmp.push_back(a - 1);
-            }
-            if (a * 2 == k) {
-                cout << ans;
-                return;
-            } else {
                 tmp.push_back(a * 2);
             }
         }
+        ans += 1;
         v = tmp;
     }
 }
