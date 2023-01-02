@@ -21,17 +21,16 @@ void solve() {
                 cout << ans;
                 return;
             } else {
-                if (a + 1 < 100100 and a < k)
+                if (a + 1 < 100100)
                     if (!is_visit[a + 1]) {
                         tmp.push_back(a + 1);
                         is_visit[a + 1] = true;
                     }
-                if (a > k)
-                    if (!is_visit[a - 1]) {
-                        tmp.push_back(a - 1);
-                        is_visit[a - 1] = true;
-                    }
-                if (a * 2 < 100100 and a < k)
+                if (!is_visit[a - 1]) {
+                    tmp.push_back(a - 1);
+                    is_visit[a - 1] = true;
+                }
+                if (a * 2 < 100100)
                     if (!is_visit[a * 2]) {
                         tmp.push_back(a * 2);
                         is_visit[a * 2] = true;
