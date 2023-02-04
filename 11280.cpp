@@ -34,7 +34,7 @@ int find_scc(int x) {
 }
 
 void solve() {
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= 2 * n; i++)
         if (dfs[i] == -1)
             find_scc(i);
     for (int i = 1; i <= n; i++) {
