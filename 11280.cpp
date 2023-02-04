@@ -21,13 +21,11 @@ int find_scc(int x) {
     }
     if (ret == dfs[x]) {
         while (!st.empty()) {
-            scc[st.top()] = scc_cnt;
-            if (st.top() == ret) {
-                st.pop();
+            int cur = st.top();
+            st.pop();
+            scc[cur] = scc_cnt;
+            if (cur == ret)
                 break;
-            } else {
-                st.pop();
-            }
         }
         scc_cnt++;
     }
@@ -36,7 +34,9 @@ int find_scc(int x) {
 }
 
 void solve() {
-    find_scc(1);
+    for (int i = 1; i <= n; i++)
+        if (dfs[i] == -1)
+            find_scc(i);
     for (int i = 1; i <= n; i++) {
         if (scc[i] == scc[i + n]) {
             cout << 0;
