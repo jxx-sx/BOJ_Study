@@ -1,30 +1,34 @@
 #include <iostream>
 #include <stack>
 #include <vector>
+
 using namespace std;
 
-vector<int> edges[20001]; // Ai = i, -Ai = i + n
-vector<int> scc(20001, -1);
-vector<int> dfs(20001, -1);
+vector<int> edges[20001]; // x > 0, x = x // x < 0, x = 10000 + abs(x) -> -1 == 10001, -2 == 10002
 stack<int> st;
-int scc_cnt = 0, dfs_cnt = 0;
+int scc[20001];
+int dfs[20001];
+int scc_cnt = 1, dfs_cnt = 0;
 int n, m;
 
+inline int f(int x) { return x < 0 ? 10000 - x : x; }
+
 int find_scc(int x) {
-    int ret = dfs[x] = dfs_cnt++;
+    int ret = dfs[x] = ++dfs_cnt;
     st.push(x);
     for (auto a : edges[x]) {
-        if (dfs[a] == -1)
+        if (!dfs[a])
             ret = min(ret, find_scc(a));
-        else if (scc[a] == -1)
+        else if (!scc[a])
             ret = min(ret, dfs[a]);
     }
+
     if (ret == dfs[x]) {
         while (!st.empty()) {
             int cur = st.top();
             st.pop();
             scc[cur] = scc_cnt;
-            if (cur == ret)
+            if (cur == x)
                 break;
         }
         scc_cnt++;
@@ -34,11 +38,15 @@ int find_scc(int x) {
 }
 
 void solve() {
-    for (int i = 1; i <= 2 * n; i++)
-        if (dfs[i] == -1)
-            find_scc(i);
     for (int i = 1; i <= n; i++) {
-        if (scc[i] == scc[i + n]) {
+        if (!dfs[i])
+            find_scc(i);
+        if (!dfs[10000 + i])
+            find_scc(i);
+    }
+
+    for (int i = 1; i <= n; i++) {
+        if (scc[i] == scc[10000 + i]) {
             cout << 0;
             return;
         }
@@ -48,23 +56,11 @@ void solve() {
 
 void init() {
     cin >> n >> m;
-    int s, e, not_s, not_e;
-    for (int i = 0; i < m; i++) {
+    int s, e;
+    while (m--) {
         cin >> s >> e;
-        if (s < 0) {
-            not_s = -s;
-            s = -s + n;
-        } else {
-            not_s = s + n;
-        }
-        if (e < 0) {
-            not_e = -e;
-            e = -e + n;
-        } else {
-            not_e = e + n;
-        }
-        edges[not_s].push_back(e);
-        edges[not_e].push_back(s);
+        edges[f(-s)].push_back(f(e));
+        edges[f(-e)].push_back(f(s));
     }
     return;
 }
