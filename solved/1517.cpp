@@ -17,7 +17,7 @@ vector<int> merge_sort(int s, int e) {
 
     int l_i = 0, r_i = 0;
     while (l_i < l.size() and r_i < r.size()) {
-        if (l[l_i] < r[r_i]) {
+        if (l[l_i] <= r[r_i]) {
             ans += rtn.size() - l_i;
             rtn.push_back(l[l_i++]);
         } else {
