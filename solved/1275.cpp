@@ -3,11 +3,11 @@
 using namespace std;
 
 int n, q;
-int tree[400000];
-int tree_data[100001];
+long long tree[400000];
+long long tree_data[100001];
 int tree_index[100001];
 
-int tree_init(int s, int e, int i) {
+long long tree_init(int s, int e, int i) {
     if (s == e) {
         tree_index[s] = i;
         return tree[i] = tree_data[s];
@@ -24,7 +24,7 @@ void tree_update(int a, int b) {
     }
 }
 
-int tree_find(int l, int r, int s, int e, int i) {
+long long tree_find(int l, int r, int s, int e, int i) {
     if (e < l or r < s)
         return 0;
     if (l <= s and e <= r)
