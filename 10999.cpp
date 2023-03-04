@@ -17,11 +17,11 @@ void lazy_update(int s, int e, int i) {
     if (lazy[i] == 0)
         return;
 
-    if (e - s) { // not leaf
+    if (s != e) { // not leaf
         tree[i] += lazy[i] * (e - s + 1);
         lazy[i << 1] = lazy[(i << 1) | 1] = lazy[i];
-    } else // leaf
-        tree[i] += lazy[i];
+    }
+    tree[i] += lazy[i] * (e - s + 1);
     lazy[i] = 0;
 }
 
