@@ -16,24 +16,19 @@ long long tree_init(int s, int e, int i) {
 void lazy_update(int s, int e, int i) {
     if (lazy[i] == 0)
         return;
-    if (e - s) {
+
+    if (e - s) { // not leaf
         tree[i] += lazy[i] * (e - s + 1);
         lazy[i << 1] = lazy[(i << 1) | 1] = lazy[i];
-    } else
+    } else // leaf
         tree[i] += lazy[i];
     lazy[i] = 0;
 }
 
 int get_range(int l, int r, int s, int e) {
-    if (l <= s and e <= r)
-        return e - s + 1;
-    if (s < l and r < e)
-        return r - l + 1;
-    if (e < r)
-        return e - l + 1;
-    if (l < s)
-        return r - s + 1;
-    return 0;
+    if (e < l or r < s)
+        return 0;
+    return min(r, e) - max(l, s) + 1;
 }
 
 void tree_update_range(int l, int r, int s, int e, int i, long long diff) {
@@ -41,18 +36,17 @@ void tree_update_range(int l, int r, int s, int e, int i, long long diff) {
         return;
     lazy_update(s, e, i);
     int range = get_range(l, r, s, e);
-    if (range == e - s + 1) {
-        if (range != 1) { // !leaf
-            tree[i] += diff * range;
+    if (l <= s and e <= r) {
+        if (s != e) { // !leaf
             lazy[i << 1] += diff;
             lazy[(i << 1) | 1] += diff;
-        } else // leaf
-            tree[i] += diff;
+        }
+        tree[i] += diff * range;
         return;
     }
-    tree[i] += diff * range;
     tree_update_range(l, r, s, (s + e) / 2, i << 1, diff);
     tree_update_range(l, r, (s + e) / 2 + 1, e, (i << 1) | 1, diff);
+    tree[i] = tree[i << 1] + tree[(i << 1) | 1];
 }
 
 long long tree_find(int l, int r, int s, int e, int i) {
@@ -73,7 +67,8 @@ void init() {
 }
 
 void solve() {
-    int a, b, c, d;
+    int a, b, c;
+    long long d;
     for (int i = 0; i < m + k; i++) {
         cin >> a;
         if (a == 1) {
