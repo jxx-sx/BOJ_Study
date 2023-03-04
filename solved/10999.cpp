@@ -13,13 +13,13 @@ long long tree_init(int s, int e, int i) {
     return tree[i] = tree_init(s, (s + e) / 2, i << 1) + tree_init((s + e) / 2 + 1, e, (i << 1) | 1);
 }
 
-void lazy_update(int s, int e, int i) {
+void propagate(int s, int e, int i) {
     if (lazy[i] == 0)
         return;
 
     if (s != e) { // not leaf
-        tree[i] += lazy[i] * (e - s + 1);
-        lazy[i << 1] = lazy[(i << 1) | 1] = lazy[i];
+        lazy[i << 1] += lazy[i];
+        lazy[(i << 1) | 1] += lazy[i];
     }
     tree[i] += lazy[i] * (e - s + 1);
     lazy[i] = 0;
@@ -32,9 +32,9 @@ int get_range(int l, int r, int s, int e) {
 }
 
 void tree_update_range(int l, int r, int s, int e, int i, long long diff) {
+    propagate(s, e, i);
     if (e < l or r < s)
         return;
-    lazy_update(s, e, i);
     int range = get_range(l, r, s, e);
     if (l <= s and e <= r) {
         if (s != e) { // !leaf
@@ -50,9 +50,9 @@ void tree_update_range(int l, int r, int s, int e, int i, long long diff) {
 }
 
 long long tree_find(int l, int r, int s, int e, int i) {
+    propagate(s, e, i);
     if (e < l or r < s)
         return 0;
-    lazy_update(s, e, i);
     if (l <= s and e <= r)
         return tree[i];
     return tree_find(l, r, s, (s + e) / 2, i << 1) + tree_find(l, r, (s + e) / 2 + 1, e, (i << 1) | 1);
