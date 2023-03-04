@@ -5,12 +5,11 @@ using namespace std;
 
 long long tree[4 * MAX_SIZE];
 long long lazy[4 * MAX_SIZE];
+long long tree_data[MAX_SIZE + 1];
 int n, m, k;
 long long tree_init(int s, int e, int i) {
-    if (s == e) {
-        cin >> tree[i];
-        return tree[i];
-    }
+    if (s == e)
+        return (tree[i] = tree_data[s]);
     return tree[i] = tree_init(s, (s + e) / 2, i << 1) + tree_init((s + e) / 2 + 1, e, (i << 1) | 1);
 }
 
@@ -28,9 +27,13 @@ void lazy_update(int s, int e, int i) {
 int get_range(int l, int r, int s, int e) {
     if (l <= s and e <= r)
         return e - s + 1;
+    if (s < l and r < e)
+        return r - l + 1;
     if (e < r)
         return e - l + 1;
-    return r - s + 1;
+    if (l < s)
+        return r - s + 1;
+    return 0;
 }
 
 void tree_update_range(int l, int r, int s, int e, int i, long long diff) {
@@ -63,6 +66,8 @@ long long tree_find(int l, int r, int s, int e, int i) {
 
 void init() {
     cin >> n >> m >> k;
+    for (int i = 1; i <= n; i++)
+        cin >> tree_data[i];
     tree_init(1, n, 1);
     return;
 }
