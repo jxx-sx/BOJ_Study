@@ -9,16 +9,18 @@ int a, b;
 void init() { cin >> a >> b; }
 
 void solve() {
-    int cnt = 0;
+    int cnt = 1;
     while (b >= a) {
         if (a == b) {
-            cout << cnt + 1;
+            cout << cnt;
             return;
         }
-        if (b & 1)
+        if ((b & 1) == 0)
+            b >>= 1;
+        else if (b % 10 == 1)
             b /= 10;
         else
-            b >>= 1;
+            break;
         cnt++;
     }
     cout << -1;
