@@ -11,15 +11,15 @@ void init() { cin >> a >> b; }
 void solve() {
     int cnt = 0;
     while (b >= a) {
+        if (a == b) {
+            cout << cnt + 1;
+            return;
+        }
         if (b & 1)
             b /= 10;
         else
             b >>= 1;
         cnt++;
-        if (a == b) {
-            cout << cnt++;
-            return;
-        }
     }
     cout << -1;
 }
