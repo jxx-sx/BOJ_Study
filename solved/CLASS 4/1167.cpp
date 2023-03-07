@@ -12,25 +12,26 @@ int dfs(int x) {
     int ret = 0, tmp;
     is_visit[x] = true;
     for (auto a : edges[x]) {
-        if (!is_visit[a.first])
+        if (!is_visit[a.first]) {
             tmp = dfs(a.first) + a.second;
-        ans = max(ans, tmp + ret);
-        ret = max(tmp, ret);
+            ans = max(ans, tmp + ret);
+            ret = max(tmp, ret);
+        }
     }
     return ret;
 }
 
 void init() {
     cin >> n;
-    int a, b;
+    int a, b, v;
     for (int i = 0; i < n; i++) {
-        cin >> a;
+        cin >> v;
         while (true) {
             cin >> a;
             if (a == -1)
                 break;
             cin >> b;
-            edges[i].push_back({a, b});
+            edges[v].push_back({a, b});
         }
     }
     return;
