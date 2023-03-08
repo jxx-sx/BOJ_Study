@@ -6,31 +6,37 @@ int n, m;
 int dist[100][13];
 pair<int, int> home[100], chicken[13];
 int home_cnt, chicken_cnt;
-int ans = 10001, tmp;
+int ans = 10001;
 int m_cnt, select_chicken[13];
 
 inline int chicken_distance(int h, int c) { return abs(home[h].first - chicken[c].first) + abs(home[h].second - chicken[c].second); }
 
-void dfs(int x) {
-    if (x == home_cnt) {
+void dfs(int x, int *b) {
+    int tmp_arr[100];
+    if (m_cnt == m) {
+        int tmp = 0;
+        for (int i = 0; i < home_cnt; i++)
+            tmp += b[i];
         ans = min(ans, tmp);
         return;
     }
-    for (int i = 0; i < chicken_cnt; i++) {
-        if (select_chicken[i] == 0) {
-            if (m_cnt == m)
-                continue;
-            m_cnt++;
-        }
-        select_chicken[i]++;
-        tmp += dist[x][i];
-        if (tmp < ans)
-            dfs(x + 1);
-        tmp -= dist[x][i];
-        select_chicken[i]--;
-        if (select_chicken[i] == 0)
-            m_cnt--;
+
+    // select
+    if (m_cnt == 0)
+        for (int i = 0; i < home_cnt; i++)
+            tmp_arr[i] = dist[i][x];
+    else
+        for (int i = 0; i < home_cnt; i++)
+            tmp_arr[i] = min(b[i], dist[i][x]);
+    if (x < chicken_cnt) {
+        m_cnt++;
+        dfs(x + 1, tmp_arr);
+        m_cnt--;
     }
+
+    // none select
+    if (x < chicken_cnt)
+        dfs(x + 1, b);
 }
 
 void init() {
@@ -51,7 +57,7 @@ void init() {
 }
 
 void solve() {
-    dfs(0);
+    dfs(0, nullptr);
     cout << ans;
 }
 
