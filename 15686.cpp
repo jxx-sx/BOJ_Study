@@ -24,7 +24,8 @@ void dfs(int x) {
         }
         select_chicken[i]++;
         tmp += dist[x][i];
-        dfs(x + 1);
+        if (tmp < ans)
+            dfs(x + 1);
         tmp -= dist[x][i];
         select_chicken[i]--;
         if (select_chicken[i] == 0)
