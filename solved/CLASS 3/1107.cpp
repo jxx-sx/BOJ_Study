@@ -24,6 +24,7 @@ void init() {
 void solve() {
     string cur;
     bool flag = false;
+    int ans = abs(100 - n);
     while (!q.empty()) {
         cur = to_string(q.front());
         flag = false;
@@ -45,11 +46,12 @@ void solve() {
                     is_visit[q.front() + 1] = true;
                 }
         } else {
-            cout << min(abs(q.front() - n) + cur.size(), (unsigned long)abs(100 - n));
+            ans = abs(q.front() - n) + cur.size() < ans ? abs(q.front() - n) + cur.size() : ans;
             break;
         }
         q.pop();
     }
+    cout << ans;
 }
 
 int main() {
