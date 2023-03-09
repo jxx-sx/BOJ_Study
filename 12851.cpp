@@ -4,14 +4,14 @@
 using namespace std;
 
 int n, k;
-int arr[100100];
-bool is_visit[100100];
+int arr[200000];
+bool is_visit[200000];
 queue<int> q;
 int ans;
 
 void solve() {
     while (!q.empty()) {
-        if (q.front() * 2 < 100100)
+        if (q.front() * 2 < 200000)
             if (!is_visit[q.front() * 2]) {
                 is_visit[q.front() * 2] = true;
                 arr[q.front() * 2] = arr[q.front()] + 1;
@@ -23,7 +23,7 @@ void solve() {
                 arr[q.front() - 1] = arr[q.front()] + 1;
                 q.push(q.front() - 1);
             }
-        if (q.front() + 1 < 100100)
+        if (q.front() + 1 < 200000)
             if (!is_visit[q.front() + 1]) {
                 is_visit[q.front() + 1] = true;
                 arr[q.front() + 1] = arr[q.front()] + 1;
@@ -31,6 +31,7 @@ void solve() {
             }
         q.pop();
     }
+    arr[n] = 0;
 
     if (arr[k] == arr[k - 1] + 1)
         ans++;
