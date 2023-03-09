@@ -9,7 +9,7 @@ void dp() {
     for (int i = 4; i <= n; i++) {
         arr[i].first = i - 1;
         arr[i].second = arr[i - 1].second + 1;
-        if (i & 1) {
+        if (i & 1 == 0) {
             if (arr[i >> 1].second + 1 < arr[i].second) {
                 arr[i].first = i >> 1;
                 arr[i].second = arr[i >> 1].second + 1;
