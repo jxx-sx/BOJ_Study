@@ -3,7 +3,8 @@
 using namespace std;
 
 int arr[5][5], matrix[5][5];
-int a, b;
+int a;
+long long b;
 
 void print() {
     for (int i = 0; i < a; i++) {
@@ -28,7 +29,7 @@ void matrix_mul(int f[5][5], int s[5][5]) {
             matrix[i][j] = tmp[i][j];
 }
 
-void d_c(int x) {
+void d_c(long long x) {
     if (x <= 1)
         return;
     d_c(x >> 1);
