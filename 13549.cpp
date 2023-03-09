@@ -8,28 +8,31 @@ int n, k;
 priority_queue<pair<int, int>> pq; // -cnt, cur
 
 void solve() {
+    int cnt, cur;
     while (!pq.empty()) {
-        if (pq.top().second == k) {
-            cout << -pq.top().first;
+        cnt = pq.top().first;
+        cur = pq.top().second;
+        pq.pop();
+        if (cur == k) {
+            cout << -cnt;
             break;
         }
-        if ((pq.top().second << 1) < 100001)
-            if (!is_visit[pq.top().second << 1]) {
-                is_visit[pq.top().second << 1] = true;
-                pq.push({pq.top().first, pq.top().second << 1});
+        if ((cur << 1) < 100001)
+            if (!is_visit[cur << 1]) {
+                is_visit[cur << 1] = true;
+                pq.push({cnt, cur << 1});
             }
 
-        if (pq.top().second - 1 >= 0)
-            if (!is_visit[pq.top().second - 1]) {
-                is_visit[pq.top().second - 1] = true;
-                pq.push({pq.top().first - 1, pq.top().second - 1});
+        if (cur - 1 >= 0)
+            if (!is_visit[cur - 1]) {
+                is_visit[cur - 1] = true;
+                pq.push({cnt - 1, cur - 1});
             }
-        if (pq.top().second + 1 < 100001)
-            if (!is_visit[pq.top().second + 1]) {
-                is_visit[pq.top().second + 1] = true;
-                pq.push({pq.top().first - 1, pq.top().second + 1});
+        if (cur + 1 < 100001)
+            if (!is_visit[cur + 1]) {
+                is_visit[cur + 1] = true;
+                pq.push({cnt - 1, cur + 1});
             }
-        pq.pop();
     }
 }
 
