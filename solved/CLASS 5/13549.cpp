@@ -5,7 +5,7 @@ using namespace std;
 
 bool is_visit[100001];
 int n, k;
-priority_queue<pair<int, int>> pq; // -cnt, cur
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq; // cnt, cur
 
 void solve() {
     int cnt, cur, tmp;
@@ -15,7 +15,7 @@ void solve() {
         pq.pop();
 
         if (cur == k) {
-            cout << -cnt;
+            cout << cnt;
             break;
         }
 
@@ -31,13 +31,13 @@ void solve() {
         if (cur - 1 >= 0)
             if (!is_visit[cur - 1]) {
                 is_visit[cur - 1] = true;
-                pq.push({cnt - 1, cur - 1});
+                pq.push({cnt + 1, cur - 1});
             }
 
         if (cur + 1 < 100001)
             if (!is_visit[cur + 1]) {
                 is_visit[cur + 1] = true;
-                pq.push({cnt - 1, cur + 1});
+                pq.push({cnt + 1, cur + 1});
             }
     }
 }
