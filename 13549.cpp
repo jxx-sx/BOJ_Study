@@ -13,23 +13,27 @@ void solve() {
         cnt = pq.top().first;
         cur = pq.top().second;
         pq.pop();
+
         if (cur == k) {
             cout << -cnt;
             break;
         }
+
         tmp = cur;
-        while ((tmp << 1) < 100001) {
-            tmp <<= 1;
+        while ((tmp <<= 1) < 100001) {
             if (!is_visit[tmp]) {
                 is_visit[tmp] = true;
                 pq.push({cnt, tmp});
-            }
+            } else
+                break;
         }
+
         if (cur - 1 >= 0)
             if (!is_visit[cur - 1]) {
                 is_visit[cur - 1] = true;
                 pq.push({cnt - 1, cur - 1});
             }
+
         if (cur + 1 < 100001)
             if (!is_visit[cur + 1]) {
                 is_visit[cur + 1] = true;
