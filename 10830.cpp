@@ -42,7 +42,7 @@ void init() {
     for (int i = 0; i < a; i++)
         for (int j = 0; j < a; j++) {
             cin >> arr[i][j];
-            matrix[i][j] = arr[i][j];
+            matrix[i][j] = (arr[i][j] %= 1000);
         }
     return;
 }
