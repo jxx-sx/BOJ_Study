@@ -8,7 +8,7 @@ int n, k;
 priority_queue<pair<int, int>> pq; // -cnt, cur
 
 void solve() {
-    int cnt, cur;
+    int cnt, cur, tmp;
     while (!pq.empty()) {
         cnt = pq.top().first;
         cur = pq.top().second;
@@ -17,12 +17,14 @@ void solve() {
             cout << -cnt;
             break;
         }
-        if ((cur << 1) < 100001)
-            if (!is_visit[cur << 1]) {
-                is_visit[cur << 1] = true;
-                pq.push({cnt, cur << 1});
+        tmp = cur;
+        while ((tmp << 1) < 100001) {
+            tmp <<= 1;
+            if (!is_visit[tmp]) {
+                is_visit[tmp] = true;
+                pq.push({cnt, tmp});
             }
-
+        }
         if (cur - 1 >= 0)
             if (!is_visit[cur - 1]) {
                 is_visit[cur - 1] = true;
