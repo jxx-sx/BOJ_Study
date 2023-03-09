@@ -31,7 +31,6 @@ void solve() {
             }
         q.pop();
     }
-    arr[n] = 0;
 
     if (arr[k] == arr[k - 1] + 1)
         ans++;
@@ -39,12 +38,15 @@ void solve() {
         ans++;
     if ((k & 1) == 0 and arr[k] == arr[k >> 1] + 1)
         ans++;
+    if (n == k)
+        ans = 1;
     cout << arr[k] << '\n' << ans;
 }
 
 void init() {
     cin >> n >> k;
     q.push(n);
+    is_visit[n] = true;
     return;
 }
 
