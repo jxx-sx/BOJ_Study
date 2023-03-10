@@ -9,7 +9,7 @@ int m, n, x, y;
 void solve() {
     int the_end = lcm(m, n);
     for (int i = 0; m * i + x <= the_end; i++) {
-        if ((m * i + x) % n == y) {
+        if ((m * i + x) % n == y % n) {
             cout << m * i + x << '\n';
             return;
         }
