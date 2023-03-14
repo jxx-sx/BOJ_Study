@@ -2,9 +2,9 @@
 #include <vector>
 
 using namespace std;
-vector<int> lis;
 int n;
 int arr[1000000];
+int lis[1000000];
 
 void init() {
     cin >> n;
@@ -14,16 +14,17 @@ void init() {
 }
 
 void solve() {
-    lis.push_back(arr[0]);
-    for (int i = 1; i < n; i++) {
-        if (lis.back() < arr[i]) {
-            lis.push_back(arr[i]);
-            continue;
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+        if (arr[i] == 0) {
+            lis[0] = 1;
+        } else {
+            lis[arr[i]] = lis[arr[i] - 1] + 1;
         }
-        *lower_bound(lis.begin(), lis.end(), arr[i]) = arr[i];
+        ans = max(lis[arr[i]], ans);
     }
-    
-    cout << n - lis.size();
+
+    cout << n - ans;
 }
 
 int main() {
