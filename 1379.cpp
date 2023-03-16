@@ -13,7 +13,7 @@ void init() {
     cin >> n;
     for (int i = 0; i < n; i++) {
         cin >> a >> b >> c;
-        lecture.push({{c, b}, a});
+        lecture.push({{b, c}, a});
     }
     room.push({0, 1});
     return;
@@ -21,14 +21,14 @@ void init() {
 
 void solve() {
     while (!lecture.empty()) {
-        if (room.top().first <= lecture.top().first.second) {
+        if (room.top().first <= lecture.top().first.first) {
             int cur = room.top().second;
             ans[lecture.top().second] = cur;
             room.pop();
-            room.push({lecture.top().first.first, cur});
+            room.push({lecture.top().first.second, cur});
         } else {
             room_cnt++;
-            room.push({lecture.top().first.first, room_cnt});
+            room.push({lecture.top().first.second, room_cnt});
             ans[lecture.top().second] = room_cnt;
         }
         lecture.pop();
