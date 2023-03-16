@@ -2,24 +2,26 @@
 #include <vector>
 
 using namespace std;
+typedef pair<int, pair<int, int>> Node;
 vector<int> child[1000001];
 bool is_visit[1000001];
 int ans, n;
 
-pair<int, int> dfs(int x, bool c, int f, int s) { // 전체 갯수, 얼리어답터 수
-    f += 1;
-    if (c)
-        s += 1;
+Node dfs(int x) { // 전체 갯수, 내가 true일때 얼리어답터 수, false ...
+    Node rtn = {1, {1, 0}};
     is_visit[x] = true;
 
     for (auto a : child[x]) {
         if (!is_visit[a]) {
-            pair<int, int> tmp = dfs(a, !c, 0, 0);
-            f += tmp.first;
-            s += tmp.second;
+            Node tmp = dfs(a);
+            rtn.first += tmp.first;
+            rtn.second.first += min(tmp.second.first, tmp.second.second);
+            rtn.second.second += tmp.second.first;
         }
     }
-    return {f, s};
+    if (rtn.first == 1) // leaf
+        return {1, {1, 0}};
+    return rtn;
 }
 
 void init() {
@@ -36,11 +38,11 @@ void init() {
 void solve() {
     for (int i = 1; i <= n; i++) {
         if (!is_visit[i]) {
-            pair<int, int> tmp = dfs(i, true, 0, 0);
+            Node tmp = dfs(i);
             if (tmp.first == 1)
                 ans += 1;
             else
-                ans += min(tmp.second, tmp.first - tmp.second);
+                ans += min(tmp.second.first, tmp.second.second);
         }
     }
     cout << ans;
