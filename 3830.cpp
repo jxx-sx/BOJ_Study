@@ -2,30 +2,39 @@
 
 using namespace std;
 int n, m;
-pair<int, int> p[100001];
+int p[100001];
+int diff[100001];
 
-pair<int, int> find_root(int x) {
-    if (p[x].first == x)
+int find_root(int x) {
+    if (p[x] == x)
         return p[x];
-    pair<int, int> tmp = find_root(p[x].first);
-    p[x].first = tmp.first;
-    p[x].second += tmp.second;
-
-    return p[x];
+    int rtn = find_root(p[x]);
+    diff[x] += diff[p[x]];
+    return p[x] = rtn;
 }
 
-void union_root(int x, int y, int diff) {
-    x = find_root(x).first;
-    p[x].first = y;
-    p[x].second = diff;
+int get_diff(int x) {
+    if (p[x] == x)
+        return 0;
+    return get_diff(p[x]) + diff[x];
+}
+
+void union_root(int x, int y, int d) {
+    x = find_root(x);
+    p[x] = y;
+    diff[x] = d;
 }
 
 bool init() {
     cin >> n >> m;
     if (n == 0 and m == 0)
         return false;
-    for (int i = 1; i <= n; i++)
-        p[i] = {i, 0};
+
+    for (int i = 1; i <= n; i++) {
+        p[i] = i;
+        diff[i] = 0;
+    }
+
     return true;
 }
 
@@ -39,10 +48,10 @@ void solve() {
             union_root(a, b, w);
         } else {
             cin >> a >> b;
-            pair<int, int> l = find_root(a);
-            pair<int, int> r = find_root(b);
-            if (l.first == r.first) {
-                cout << l.second - r.second << '\n';
+            int l = find_root(a);
+            int r = find_root(b);
+            if (l == r) {
+                cout << get_diff(a) - get_diff(b) << '\n';
             } else
                 cout << "UNKNOWN\n";
         }
