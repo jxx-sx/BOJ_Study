@@ -22,7 +22,6 @@ bool valid(int x, int y) {
 
 void dfs(int x, int y) {
     cc_cnt[dfs_cnt]++;
-    cc_cnt[dfs_cnt] %= 10;
     is_visit[x][y] = true;
     arr[x][y] = dfs_cnt;
     for (int i = 0; i < 4; i++) {
@@ -75,12 +74,11 @@ void solve() {
                             else {
                                 aa.push_back(tmp2);
                                 tmp += cc_cnt[tmp2];
-                                tmp %= 10;
                             }
                         }
                     }
                 }
-                cout << tmp + 1;
+                cout << (tmp + 1) % 10;
             } else
                 cout << 0;
         }
