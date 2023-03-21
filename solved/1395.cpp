@@ -10,8 +10,10 @@ inline int get_range(int l, int r, int s, int e) { return min(r, e) - max(l, s) 
 
 void propagate(int s, int e, int x) {
     if (lazy[x]) {
-        lazy[x << 1] = !lazy[x << 1];
-        lazy[x << 1 | 1] = !lazy[x << 1 | 1];
+        if (s != e) {
+            lazy[x << 1] = !lazy[x << 1];
+            lazy[x << 1 | 1] = !lazy[x << 1 | 1];
+        }
         tree[x] = e - s + 1 - tree[x];
         lazy[x] = false;
     }
