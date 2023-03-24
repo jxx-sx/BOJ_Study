@@ -57,7 +57,7 @@ int get_lca(int a, int b) {
     return a;
 }
 
-int query_1(int a, int b) {
+long long query_1(int a, int b) {
     long long rtn = 0;
 
     if (depth[a] > depth[b])
