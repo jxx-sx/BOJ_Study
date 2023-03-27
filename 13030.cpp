@@ -7,8 +7,8 @@ using namespace std;
 int n, q;
 int p[300001];
 vector<int> child[300001];
-pair<int, int> lazy[300001]; // x, k
-int tree[300001];
+pair<long long, long long> lazy[300001]; // x, k
+long long tree[300001];
 
 void propagate(int x) {
     tree[x] += lazy[x].first;
@@ -29,7 +29,7 @@ void update(int x) {
     propagate(x);
 }
 
-void query(int v, int x, int k) {
+void query(int v, long long x, long long k) {
     lazy[v].first += x;
     lazy[v].first %= MOD;
     lazy[v].second += k;
@@ -48,7 +48,8 @@ void init() {
 }
 
 void solve() {
-    int m, v, x, k;
+    int m, v;
+    long long x, k;
     for (int i = 0; i < q; i++) {
         cin >> m >> v;
         if (m == 1) {
