@@ -36,15 +36,15 @@ void init() {
         cin >> x >> y;
         if (x < 0) {
             not_x = -x;
-            x = -x + n;
+            x = -x + m;
         } else
-            not_x = x + n;
+            not_x = x + m;
 
         if (y < 0) {
             not_y = -y;
-            y = -y + n;
+            y = -y + m;
         } else
-            not_y = y + n;
+            not_y = y + m;
 
         edges[not_x].push_back(y);
         edges_r[y].push_back(not_x);
@@ -70,8 +70,8 @@ void get_scc() {
 
 void solve() {
     get_scc();
-    for (int i = 1; i <= n; i++)
-        if (scc[i] == scc[i + n]) {
+    for (int i = 1; i <= m; i++)
+        if (scc[i] == scc[i + m]) {
             cout << "OTL";
             return;
         }
