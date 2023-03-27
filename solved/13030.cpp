@@ -13,6 +13,8 @@ long long tree[300001];
 void propagate(int x) {
     tree[x] += lazy[x].first;
     tree[x] %= MOD;
+    if (tree[x] < 0)
+        tree[x] += MOD;
     for (auto a : child[x]) {
         lazy[a].first += lazy[x].first;
         lazy[a].first -= lazy[x].second;
