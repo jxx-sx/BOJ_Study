@@ -47,9 +47,8 @@ void init() {
     int a, b, na, nb;
     scc_cnt = dfs_cnt = 0;
     for (int i = 1; i < (n << 1 | 1); i++) {
-        order[i] = 0;
+        scc[i] = l[i] = order[i] = 0;
         edges[i].clear();
-        scc[i] = 0;
     }
 
     for (int i = 0; i < m; i++) {
