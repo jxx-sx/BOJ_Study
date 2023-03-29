@@ -5,11 +5,11 @@
 using namespace std;
 
 stack<int> st;
-int scc[2001];
+int scc[1999];
 int dfs_cnt, scc_cnt;
-int l[2001];
-int order[2001];
-vector<int> edges[2001];
+int l[1999];
+int order[1999];
+vector<int> edges[1999];
 int n, m;
 
 void dfs(int x) {
@@ -17,7 +17,7 @@ void dfs(int x) {
     st.push(x);
     order[x] = l[x] = dfs_cnt;
     for (auto a : edges[x]) {
-        if (order[x] == 0) {
+        if (order[a] == 0) {
             dfs(a);
             l[x] = min(l[a], l[x]);
         } else if (scc[a] == 0)
@@ -39,7 +39,7 @@ void dfs(int x) {
 
 void get_scc() {
     for (int i = 1; i < (n << 1 | 1); i++)
-        if (scc[i] == 0)
+        if (order[i] == 0)
             dfs(i);
 }
 
@@ -74,18 +74,19 @@ void init() {
 }
 
 void solve() {
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i <= n; i++)
         if (scc[i] == scc[i + n]) {
             cout << "no\n";
             return;
         }
-    }
+
     cout << "yes\n";
 }
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
+
     while (cin >> n >> m) {
         init();
         solve();
