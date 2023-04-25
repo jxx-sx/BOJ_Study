@@ -1,52 +1,55 @@
 #include <iostream>
 #include <queue>
+#include <vector>
 
 using namespace std;
 
 bool matrix[50][50];
-int in_degree[50];
+int out_degree[50];
 int m[50];
-char ch;
-int n;
+int n, ord;
 priority_queue<int> pq;
+bool is_visit[50];
 
-int bfs() {
-    int rtn = 0;
+void bfs() {
     int cur;
     for (int i = 0; i < n; i++)
-        if (in_degree[i] == 0)
-            pq.push(-i);
-    while (!pq.empty()) {
-        cur = -pq.top();
-        pq.pop();
-        rtn++;
-        m[cur] = rtn;
-        for (int i = 0; i < n; i++) {
-            if (matrix[cur][i]) {
-                in_degree[i]--;
-                if (in_degree[i] == 0)
-                    pq.push(-i);
-            }
+        if (out_degree[i] == 0) {
+            pq.push(i);
+            is_visit[i] = true;
         }
+
+    while (!pq.empty()) {
+        cur = pq.top();
+        pq.pop();
+        m[cur] = ord;
+        ord--;
+        for (int i = 0; i < n; i++)
+            if (matrix[i][cur] and !is_visit[i]) {
+                pq.push(i);
+                is_visit[i] = true;
+            }
     }
-    return rtn;
 }
 
 void init() {
+    char ch;
     cin >> n;
+    ord = n;
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++) {
             cin >> ch;
             matrix[i][j] = ch == '1';
             if (matrix[i][j])
-                in_degree[j] += 1;
+                out_degree[i] += 1;
         }
 
     return;
 }
 
 void solve() {
-    if (n != bfs())
+    bfs();
+    if (ord)
         cout << -1;
     else
         for (int i = 0; i < n; i++)
