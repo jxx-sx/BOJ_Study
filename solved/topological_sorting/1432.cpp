@@ -9,14 +9,12 @@ int out_degree[50];
 int m[50];
 int n, ord;
 priority_queue<int> pq;
-bool is_visit[50];
 
 void bfs() {
     int cur;
     for (int i = 0; i < n; i++)
         if (out_degree[i] == 0) {
             pq.push(i);
-            is_visit[i] = true;
         }
 
     while (!pq.empty()) {
@@ -26,10 +24,10 @@ void bfs() {
         ord--;
         for (int i = 0; i < n; i++)
             if (matrix[i][cur]) {
-                if (!is_visit[i])
-                    return;
-                pq.push(i);
-                is_visit[i] = true;
+                out_degree[i]--;
+                if (out_degree[i] == 0) {
+                    pq.push(i);
+                }
             }
     }
 }
