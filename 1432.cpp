@@ -25,7 +25,9 @@ void bfs() {
         m[cur] = ord;
         ord--;
         for (int i = 0; i < n; i++)
-            if (matrix[i][cur] and !is_visit[i]) {
+            if (matrix[i][cur]) {
+                if (!is_visit[i])
+                    return;
                 pq.push(i);
                 is_visit[i] = true;
             }
