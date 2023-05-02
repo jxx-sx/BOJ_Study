@@ -3,7 +3,7 @@
 #include <vector>
 
 using namespace std;
-vector<int> edges[300001]; // r: 1~ 50000, g: 50001 ~ 100000, b: 100001 ~ 1500000
+vector<int> edges[300001]; // b: 1~ 50000, g: 50001 ~ 100000, r: 100001 ~ 1500000
 vector<int> st;
 int n, m;
 int scc[300001];
@@ -56,7 +56,7 @@ int dfs(int x) {
 }
 
 void tarjan() {
-    for (int i = 1; i <= 3 * n; i++) {
+    for (int i = 1; i < 150001; i++) {
         if (ord[i] == 0)
             dfs(i);
         if (ord[i + 150000] == 0)
@@ -71,30 +71,16 @@ void init() {
     string c1, c2;
     for (int j = 0; j < m; j++) {
         cin >> a >> b >> k >> c1 >> c2;
-        n1 = color2num(c1);
-        n2 = color2num(c2);
-        if (k == 'H') { // high
-            for (int i = 0; i < 3; i++) {
-                if ((1 << i) & n1) {     // 입력된 색인 경우
-                    if ((1 << i) & n2) { // 둘다 색이 존재해야함
-                        edges[a + i * 50000 + 150000].push_back(a + i * 50000);
-                        edges[b + i * 50000 + 150000].push_back(b + i * 50000);
-                    } else { // 둘 중 하나가 존재한다면 다른 하나가 없어야함
-                        edges[a + i * 50000].push_back(b + i * 50000 + 150000);
-                        edges[b + i * 50000].push_back(a + i * 50000 + 150000);
-                    }
-                }
-            }
-        } else { // low
-            for (int i = 0; i < 3; i++) {
-                if ((1 << i) & n1) {     // 입력된 색인 경우
-                    if ((1 << i) & n2) { // 둘 중 하나가 없다면 다른 하나가 존재해야함
-                        edges[a + i * 50000 + 150000].push_back(b + i * 50000);
-                        edges[b + i * 50000 + 150000].push_back(a + i * 50000);
-                    } else { // 둘 다 없어야함
-                        edges[a + i * 50000].push_back(a + i * 50000 + 150000);
-                        edges[b + i * 50000].push_back(b + i * 50000 + 150000);
-                    }
+        n1 = color2num(c1); // 입력 빛
+        n2 = color2num(c2); // 출력 빛
+        for (int i = 0; i < 3; i++) {
+            if ((1 << i) & n1) {
+                if ((1 << i) & n2) {
+                    edges[a + i * 50000 + 150000].push_back((k == 'H' ? a : b) + i * 50000);
+                    edges[b + i * 50000 + 150000].push_back((k == 'H' ? b : a) + i * 50000);
+                } else {
+                    edges[a + i * 50000].push_back((k == 'H' ? b : a) + i * 50000 + 150000);
+                    edges[b + i * 50000].push_back((k == 'H' ? a : b) + i * 50000 + 150000);
                 }
             }
         }
@@ -105,7 +91,7 @@ void init() {
 }
 
 void solve() {
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i < 150001; i++)
         if (scc[i] == scc[i + 150000]) {
             cout << "THINKINGFACE";
             return;
