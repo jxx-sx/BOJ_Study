@@ -3,7 +3,7 @@
 #include <vector>
 
 using namespace std;
-vector<int> edges[300001]; // b: 1~ 50000, g: 50001 ~ 100000, r: 100001 ~ 1500000
+vector<int> edges[300001]; // b: 1~ 50000, g: 50001 ~ 100000, r: 100001 ~ 150000
 vector<int> st;
 int n, m;
 int scc[300001];
@@ -73,6 +73,7 @@ void init() {
         cin >> a >> b >> k >> c1 >> c2;
         n1 = color2num(c1); // 입력 빛
         n2 = color2num(c2); // 출력 빛
+
         for (int i = 0; i < 3; i++) {
             if ((1 << i) & n1) {
                 if ((1 << i) & n2) {
@@ -82,6 +83,9 @@ void init() {
                     edges[a + i * 50000].push_back((k == 'H' ? b : a) + i * 50000 + 150000);
                     edges[b + i * 50000].push_back((k == 'H' ? a : b) + i * 50000 + 150000);
                 }
+            } else {
+                if ((1 << i) & n2)
+                    scc[0] = 1;
             }
         }
     }
@@ -91,6 +95,11 @@ void init() {
 }
 
 void solve() {
+    if (scc[0] == 1) {
+        cout << "THINKINGFACE";
+        return;
+    }
+
     for (int i = 1; i < 150001; i++)
         if (scc[i] == scc[i + 150000]) {
             cout << "THINKINGFACE";
