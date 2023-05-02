@@ -75,7 +75,7 @@ void solve() {
             cout << -1;
             return;
         }
-        rb[i] = scc[i] < scc[i + 1];
+        rb[i] = scc[i] < scc[i + 5000];
     }
     for (int i = 1; i <= k; i++)
         cout << (rb[i] ? 'R' : 'B');
