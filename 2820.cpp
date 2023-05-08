@@ -11,9 +11,10 @@ int n, m;
 
 void propagate(int x) {
     if (lazy[x]) {
-        for (auto a : edges[x])
+        for (auto a : edges[x]) {
             lazy[a] += lazy[x];
-        salary[x] += lazy[x];
+            salary[a] += lazy[x];
+        }
         lazy[x] = 0;
     }
 }
@@ -41,8 +42,7 @@ void solve() {
         cin >> ch >> a;
         if (ch == 'p') {
             cin >> b;
-            for (auto c : edges[a])
-                lazy[c] += b;
+            lazy[a] += b;
         } else {
             quary_u(a);
             cout << salary[a] << '\n';
