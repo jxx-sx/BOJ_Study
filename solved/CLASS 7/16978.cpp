@@ -72,8 +72,8 @@ void solve() {
     while (!pq.empty()) {
         Node cur_node = pq.top();
         pq.pop();
-        for (int i = cur; i < cur_node.k; i++)
-            tree_update(save[i].first, save[i].second, 1, n, 1);
+        for (; cur < cur_node.k; cur++)
+            tree_update(save[cur].first, save[cur].second, 1, n, 1);
         ans[cur_node.o] = tree_find(cur_node.i, cur_node.j, 1, n, 1);
     }
 
