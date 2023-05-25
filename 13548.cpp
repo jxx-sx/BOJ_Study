@@ -24,6 +24,7 @@ bool compare(Q a, Q b) {
 void updateL(int x) {
     while (x < l) {
         l--;
+        sum_cnt[cnt[arr[l]]]--;
         cnt[arr[l]]++;
         sum_cnt[cnt[arr[l]]]++;
         if (cnt[arr[l]] > cur_max)
@@ -34,6 +35,7 @@ void updateL(int x) {
             cur_max--;
         sum_cnt[cnt[arr[l]]]--;
         cnt[arr[l]]--;
+        sum_cnt[cnt[arr[l]]]++;
         l++;
     }
 }
@@ -44,10 +46,12 @@ void updateR(int x) {
             cur_max--;
         sum_cnt[cnt[arr[r]]]--;
         cnt[arr[r]]--;
+        sum_cnt[cnt[arr[r]]]++;
         r--;
     }
     while (r < x) {
         r++;
+        sum_cnt[cnt[arr[r]]]--;
         cnt[arr[r]]++;
         sum_cnt[cnt[arr[r]]]++;
         if (cnt[arr[r]] > cur_max)
