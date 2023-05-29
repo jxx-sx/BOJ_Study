@@ -4,7 +4,7 @@
 using namespace std;
 
 vector<int> tree[4000000];
-int ans;
+long long ans;
 int n;
 
 void tree_init(int s, int e, int i) {
