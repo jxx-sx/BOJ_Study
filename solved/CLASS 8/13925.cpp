@@ -4,8 +4,8 @@
 using namespace std;
 struct Lazy {
     long long m;
-    int a;
-    int c;
+    long long a;
+    long long c;
     bool check;
 
     Lazy() {
@@ -26,11 +26,14 @@ int n;
 
 void update(int s, int e, int x) {
     if (lazy[x].check) {
-        tree[x] = ((long long)lazy[x].c * lazy[x].m + lazy[x].a) % MOD;
-        tree[x] = tree[x] * (e - s + 1) % MOD;
-    } else {
-        tree[x] = tree[x] * lazy[x].m % MOD;
-        tree[x] = (tree[x] + lazy[x].a * (e - s + 1)) % MOD;
+        tree[x << 1 | 1] = tree[x << 1] = (lazy[x].c * lazy[x].m + lazy[x].a) % MOD;
+        tree[x << 1] = tree[x << 1] * ((s + e) / 2 - s + 1) % MOD;
+        tree[x << 1 | 1] = tree[x << 1 | 1] * (e - (s + e) / 2) % MOD;
+    } else if (lazy[x].m != 1 or lazy[x].a != 0) {
+        tree[x << 1] = tree[x << 1] * lazy[x].m % MOD;
+        tree[x << 1] = (tree[x << 1] + lazy[x].a * ((s + e) / 2 - s + 1)) % MOD;
+        tree[x << 1 | 1] = tree[x << 1 | 1] * lazy[x].m % MOD;
+        tree[x << 1 | 1] = (tree[x << 1 | 1] + lazy[x].a * (e - (s + e) / 2)) % MOD;
     }
 }
 
@@ -39,22 +42,19 @@ void push_down(int s, int e, int x) {
         lazy[x << 1] = lazy[x << 1 | 1] = lazy[x];
     } else {
         lazy[x << 1].m = lazy[x << 1].m * lazy[x].m % MOD;
-        lazy[x << 1].a = lazy[x << 1].a + lazy[x].a % MOD;
+        lazy[x << 1].a = (lazy[x].m * lazy[x << 1].a + lazy[x].a) % MOD;
         lazy[x << 1 | 1].m = lazy[x << 1 | 1].m * lazy[x].m % MOD;
-        lazy[x << 1 | 1].a = lazy[x << 1 | 1].a + lazy[x].a % MOD;
+        lazy[x << 1 | 1].a = (lazy[x].m * lazy[x << 1 | 1].a + lazy[x].a) % MOD;
     }
-
+    update(s, e, x);
     lazy[x] = Lazy();
-
-    update(s, (s + e) / 2, x << 1);
-    update((s + e) / 2 + 1, e, x << 1 | 1);
 }
 
-void add(int l, int r, int k, int s, int e, int i) {
+void add(int l, int r, long long k, int s, int e, int i) {
     if (e < l or r < s)
         return;
     if (l <= s and e <= r) {
-        tree[i] = ((long long)tree[i] + k * (e - s + 1)) % MOD;
+        tree[i] = (tree[i] + k * (e - s + 1)) % MOD;
         lazy[i].a = (lazy[i].a + k) % MOD;
         return;
     }
@@ -65,12 +65,13 @@ void add(int l, int r, int k, int s, int e, int i) {
     tree[i] = (tree[i << 1] + tree[i << 1 | 1]) % MOD;
 }
 
-void multiple(int l, int r, int k, int s, int e, int i) {
+void multiple(int l, int r, long long k, int s, int e, int i) {
     if (e < l or r < s)
         return;
     if (l <= s and e <= r) {
         tree[i] = tree[i] * k % MOD;
         lazy[i].m = lazy[i].m * k % MOD;
+        lazy[i].a = lazy[i].a * k % MOD;
         return;
     }
     push_down(s, e, i);
@@ -80,11 +81,11 @@ void multiple(int l, int r, int k, int s, int e, int i) {
     tree[i] = (tree[i << 1] + tree[i << 1 | 1]) % MOD;
 }
 
-void change(int l, int r, int k, int s, int e, int i) {
+void change(int l, int r, long long k, int s, int e, int i) {
     if (e < l or r < s)
         return;
     if (l <= s and e <= r) {
-        tree[i] = (long long)k * (e - s + 1) % MOD;
+        tree[i] = k * (e - s + 1) % MOD;
         lazy[i] = Lazy(k);
         return;
     }
@@ -95,7 +96,7 @@ void change(int l, int r, int k, int s, int e, int i) {
     tree[i] = (tree[i << 1] + tree[i << 1 | 1]) % MOD;
 }
 
-int query(int l, int r, int s, int e, int i) {
+long long query(int l, int r, int s, int e, int i) {
     if (e < l or r < s)
         return 0;
     if (l <= s and e <= r)
