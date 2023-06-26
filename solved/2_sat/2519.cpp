@@ -29,8 +29,8 @@ void ccw_init(int a, int b) {
     arr[4] = sticks[a].y2 * sticks[b].x1;
     arr[5] = sticks[a].x1 * sticks[b].y1;
     arr[6] = sticks[a].x2 * sticks[b].y2;
-    arr[7] = sticks[a].y1 * sticks[b].x1;
-    arr[8] = sticks[a].y2 * sticks[b].x1;
+    arr[7] = sticks[a].y1 * sticks[b].x2;
+    arr[8] = sticks[a].y2 * sticks[b].x2;
     arr[9] = sticks[a].x1 * sticks[b].y2;
     arr[10] = sticks[b].x1 * sticks[b].y2;
     arr[11] = sticks[b].y1 * sticks[b].x2;
@@ -43,33 +43,12 @@ void get_ccw() {
     ccw[3] = arr[1] + arr[8] + arr[10] - arr[4] - arr[6] - arr[11];
 }
 
-int cal_ccw(pair<int, int> p1, pair<int, int> p2, pair<int, int> p3) {
-    int s = p1.first * p2.second + p2.first * p3.second + p3.first * p1.second;
-    s -= (p1.second * p2.first + p2.second * p3.first + p3.second * p1.first);
-    if (s > 0)
-        return 1;
-    else if (s == 0)
-        return 0;
-    else
-        return -1;
-}
-
 bool is_cross(int a, int b) {
-    // ccw_init(a, b);
-    // get_ccw();
-    // if (ccw[0] * ccw[1] > 0)
-    //     return false;
-    // if (ccw[2] * ccw[3] > 0)
-    //     return false;
-
-    int tmp;
-    tmp = cal_ccw({sticks[a].x1, sticks[a].y1}, {sticks[a].x2, sticks[a].y2}, {sticks[b].x1, sticks[b].y1}) *
-          cal_ccw({sticks[a].x1, sticks[a].y1}, {sticks[a].x2, sticks[a].y2}, {sticks[b].x2, sticks[b].y2});
-    if (tmp > 0)
+    ccw_init(a, b);
+    get_ccw();
+    if (ccw[0] * ccw[1] > 0)
         return false;
-    tmp = cal_ccw({sticks[b].x1, sticks[b].y1}, {sticks[b].x2, sticks[b].y2}, {sticks[a].x1, sticks[a].y1}) *
-          cal_ccw({sticks[b].x1, sticks[b].y1}, {sticks[b].x2, sticks[b].y2}, {sticks[a].x2, sticks[a].y2});
-    if (tmp > 0)
+    if (ccw[2] * ccw[3] > 0)
         return false;
     return true;
 }
