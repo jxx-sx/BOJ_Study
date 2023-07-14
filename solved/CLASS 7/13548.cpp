@@ -13,7 +13,7 @@ int ans[100000];
 Q query[100000];
 int cur_max; // cnt 최댓값
 int sqr;
-int l = 1, r = 1;
+int l = 1, r = 0;
 
 bool compare(Q a, Q b) {
     if (a.first.first / sqr == b.first.first / sqr)
@@ -70,8 +70,6 @@ void init() {
     }
 
     sqr = (int)sqrt(n);
-    cnt[1]++;
-    cur_max = 1;
 
     sort(query, query + m, compare);
     return;
@@ -79,8 +77,8 @@ void init() {
 
 void solve() {
     for (int i = 0; i < m; i++) {
-        updateL(query[i].first.first);
         updateR(query[i].first.second);
+        updateL(query[i].first.first);
 
         ans[query[i].second] = cur_max;
     }
