@@ -1,11 +1,7 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
-#define pb push_back
 #define N 1000001
-#define NN                                                                                                                                                     \
-    tree.size();                                                                                                                                               \
-    tree.pb(Node())
 
 using namespace std;
 
@@ -17,17 +13,16 @@ struct Node {
         l = t->l;
         r = t->r;
     }
-};
+} tree[44444444];
 
-int n, q, last;
+int n, q, last, ord;
 int arr[N], pre[N], comp[N];
-vector<Node> tree;
 
 void tree_init(int s, int e, int cur) {
     if (s == e)
         return;
-    tree[cur].l = NN;
-    tree[cur].r = NN;
+    tree[cur].l = ord++;
+    tree[cur].r = ord++;
     tree_init(s, (s + e) / 2, tree[cur].l);
     tree_init((s + e) / 2 + 1, e, tree[cur].r);
 }
@@ -38,10 +33,10 @@ void tree_init1(int k, int s, int e, int cur, int before) {
         return;
     if (k > (s + e) / 2) {
         tree[cur].l = tree[before].l;
-        tree[cur].r = NN;
+        tree[cur].r = ord++;
         tree_init1(k, (s + e) / 2 + 1, e, tree[cur].r, tree[before].r);
     } else {
-        tree[cur].l = NN;
+        tree[cur].l = ord++;
         tree[cur].r = tree[before].r;
         tree_init1(k, s, (s + e) / 2, tree[cur].l, tree[before].l);
     }
@@ -52,14 +47,12 @@ void update(int k, int s, int e, int cur) {
     if (s == e)
         return;
     if (k > (s + e) / 2) {
-        Node *tmp = &tree[tree[cur].r];
-        tree[cur].r = NN;
-        tree[tree[cur].r].copy(tmp);
+        tree[ord].copy(&tree[tree[cur].r]);
+        tree[cur].r = ord++;
         update(k, (s + e) / 2 + 1, e, tree[cur].r);
     } else {
-        Node *tmp = &tree[tree[cur].l];
-        tree[cur].l = NN;
-        tree[tree[cur].l].copy(tmp);
+        tree[ord].copy(&tree[tree[cur].l]);
+        tree[cur].l = ord++;
         update(k, s, (s + e) / 2, tree[cur].l);
     }
 }
@@ -74,11 +67,10 @@ int query(int l, int r, int s, int e, int cur) {
 
 void init() {
     cin >> n;
-    tree.pb(Node());
+    ord = n + 1;
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
         comp[i] = arr[i];
-        tree.pb(Node());
     }
     cin >> q;
     sort(comp, comp + n);
