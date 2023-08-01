@@ -13,8 +13,7 @@ struct Node {
 } tree[N];
 
 int n, q, last;
-int arr[N], pre[N];
-vector<int> v;
+int arr[N], pre[N], comp[N];
 
 void tree_init(int s, int e, Node *cur) {
     if (s == e)
@@ -65,12 +64,12 @@ void init() {
     cin >> n;
     for (int i = 1; i <= n; i++) {
         cin >> arr[i];
-        v.push_back(arr[i]);
+        comp[i - 1] = arr[i];
     }
     cin >> q;
-    sort(v.begin(), v.end());
+    sort(comp, comp + n);
     for (int i = 1; i <= n; i++)
-        arr[i] = lower_bound(v.begin(), v.end(), arr[i]) - v.begin();
+        arr[i] = lower_bound(comp, comp + n, arr[i]) - comp;
 
     tree_init(1, n, tree);
     for (int i = 1; i <= n; i++) {
