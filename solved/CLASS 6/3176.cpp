@@ -56,7 +56,7 @@ Node Query(int a, int b) {
         rtn = comp(rtn, tree.query(in[st], in[a], 1, n, 1));
         a = p[st];
     }
-    if (top[a] > top[b])
+    if (dep[a] > dep[b])
         swap(a, b);
     rtn = comp(rtn, tree.query(in[a] + 1, in[b], 1, n, 1));
     return rtn;
