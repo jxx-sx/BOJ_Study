@@ -9,14 +9,14 @@ struct Node {
     long long dist;
     int dst, cnt;
 
-    bool operator<(const Node &t) const { return dist == t.dist ? cnt < t.cnt : dist > t.dist; }
+    bool operator<(const Node &t) const { return dist == t.dist ? cnt > t.cnt : dist > t.dist; }
 
     Node(long long dist, int dst, int cnt) : dist(dist), dst(dst), cnt(cnt) {}
 };
 
 int n, m, k, s, d, tax;
 long long dist[1001];
-bool visited[1001];
+int visited[1001];
 vector<pair<int, int>> v[1001];
 priority_queue<Node> pq;
 
@@ -26,15 +26,15 @@ void dijk() {
     while (pq.size()) {
         auto cur = pq.top();
         pq.pop();
-        if (visited[cur.dst])
+        if (cur.cnt >= visited[cur.dst])
             continue;
+        visited[cur.dst] = cur.cnt;
         if (cur.dst == d) {
-            dist[cur.cnt] = dist[cur.cnt] == 0 ? cur.dist : min(dist[cur.cnt], cur.dist);
+            dist[cur.cnt] = cur.dist;
             continue;
         }
-        visited[cur.dst] = true;
         for (auto a : v[cur.dst])
-            if (!visited[a.first])
+            if (cur.cnt + 1 < visited[a.first])
                 pq.push(Node(cur.dist + a.second, a.first, cur.cnt + 1));
     }
 }
@@ -56,7 +56,8 @@ void init() {
         v[b].pb({a, w});
     }
 
-    visited[s] = true;
+    for (int i = 1; i <= n; i++)
+        visited[i] = 20000;
 
     dijk();
 }
