@@ -15,8 +15,7 @@ void init() {
 }
 
 void solve() {
-    if (arr[1] > 0)
-        dp[0][1] = arr[1];
+    dp[0][1] = arr[1];
     mx = arr[1];
     for (int i = 2; i <= n; i++) {
         dp[0][i] = max(dp[0][i - 1] + arr[i], arr[i]);
