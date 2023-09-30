@@ -18,10 +18,10 @@ struct Query {
 } q[M];
 
 int arr[1000001];
-int cnt[1 << 21];
+long long cnt[1 << 21];
 int n, m, k;
 long long cur;
-int ans[M];
+long long ans[M];
 int l, r;
 
 void init() {
