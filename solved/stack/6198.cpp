@@ -1,10 +1,8 @@
 #include <iostream>
-#include <stack>
 
 using namespace std;
 
-stack<int> st;
-int n, arr[80000];
+int n, arr[80000], cur, st[80000];
 long long ans;
 
 void init() {
@@ -15,15 +13,16 @@ void init() {
 
 void solve() {
     for (int i = 0; i < n; i++) {
-        while (st.size() and arr[st.top()] <= arr[i]) {
-            ans += i - st.top() - 1;
-            st.pop();
+        while (cur and arr[st[cur - 1]] <= arr[i]) {
+            ans += i - st[cur - 1] - 1;
+            cur--;
         }
-        st.push(i);
+        st[cur] = i;
+        cur++;
     }
-    while (st.size()) {
-        ans += n - st.top() - 1;
-        st.pop();
+    while (cur) {
+        ans += n - st[cur - 1] - 1;
+        cur--;
     }
 
     cout << ans;
