@@ -4,27 +4,25 @@
 using namespace std;
 
 stack<int> st;
-int n, arr[80000], s[80000];
+int n, arr[80000];
 long long ans;
 
 void init() {
     cin >> n;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
         cin >> arr[i];
-        s[i] = i;
-    }
 }
 
 void solve() {
     for (int i = 0; i < n; i++) {
         while (st.size() and arr[st.top()] <= arr[i]) {
-            ans += i - s[st.top()] - 1;
+            ans += i - st.top() - 1;
             st.pop();
         }
         st.push(i);
     }
     while (st.size()) {
-        ans += n - s[st.top()] - 1;
+        ans += n - st.top() - 1;
         st.pop();
     }
 
