@@ -21,5 +21,5 @@
 > CLASS 3++  
 > CLASS 4++  
 > CLASS 5+  
+> CLASS 6+  
 > CLASS 7  
-> B4 All solve
