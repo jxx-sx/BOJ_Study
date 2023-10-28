@@ -6,12 +6,9 @@
 
 using namespace std;
 
-struct Frog {
-    int preference[4];
-    int a, b;
-} frog[3030];
-
-int n, m, ord, scc_cnt;
+int frog[3030][4];
+int frog_lotus[3030][2];
+int n, m, ord, scc_cnt, ans[3030];
 int l[N], visited[N], scc[N];
 vector<int> e[N], lotus[3030], st;
 
@@ -53,24 +50,21 @@ void init() {
     int a, b, t;
     cin >> n >> m;
     for (int i = 1; i <= n; i++)
-        cin >> frog[i].preference[0] >> frog[i].preference[1] >> frog[i].preference[2] >> frog[i].preference[3];
+        cin >> frog[i][0] >> frog[i][1] >> frog[i][2] >> frog[i][3];
 
     for (int i = 1; i <= n; i++) {
-        cin >> frog[i].a >> frog[i].b;
-        lotus[frog[i].a].pb(i);
-        if (frog[i].a != frog[i].b)
-            lotus[frog[i].b].pb(i);
-        else
-            e[(i << 1) | 1].pb(i << 1);
+        cin >> frog_lotus[i][0] >> frog_lotus[i][1];
+        lotus[frog_lotus[i][0]].pb(i << 1);
+        lotus[frog_lotus[i][1]].pb(i << 1 | 1);
     }
 
     while (m--) {
         cin >> a >> b >> t;
         for (auto l : lotus[a]) {
             for (auto r : lotus[b]) {
-                if (frog[l].preference[t - 1] != frog[r].preference[t - 1]) {
-                    e[(l << 1) | (frog[l].a == a ? 0 : 1)].pb((r << 1) | (frog[r].a == b ? 1 : 0));
-                    e[(r << 1) | (frog[r].a == b ? 0 : 1)].pb((l << 1) | (frog[l].a == a ? 1 : 0));
+                if (frog[l >> 1][t - 1] != frog[r >> 1][t - 1]) {
+                    e[l].pb(r ^ 1);
+                    e[r].pb(l ^ 1);
                 }
             }
         }
@@ -78,32 +72,20 @@ void init() {
 }
 
 void solve() {
-    for (int i = 1; i <= n; i++) {
-        if (lotus[i].empty()) {
-            cout << "NO";
-            return;
-        }
-        for (int j = 0; j < lotus[i].size(); j++)
-            for (int k = j + 1; k < lotus[i].size(); k++) {
-                e[(lotus[i][j] << 1) | (frog[lotus[i][j]].a == i ? 0 : 1)].pb((lotus[i][k] << 1) | (frog[lotus[i][k]].a == i ? 1 : 0));
-                e[(lotus[i][k] << 1) | (frog[lotus[i][k]].a == i ? 0 : 1)].pb((lotus[i][j] << 1) | (frog[lotus[i][j]].a == i ? 1 : 0));
-            }
-    }
 
     tarjan();
 
     for (int i = 1; i <= n; i++) {
-        if (frog[i].a == frog[i].b)
-            continue;
         if (scc[i << 1] == scc[i << 1 | 1]) {
             cout << "NO";
             return;
         }
+        ans[scc[i << 1] < scc[i << 1 | 1] ? frog_lotus[i][0] : frog_lotus[i][1]] = i;
     }
 
     cout << "YES\n";
     for (int i = 1; i <= n; i++)
-        cout << (scc[i << 1] < scc[i << 1 | 1] ? frog[i].a : frog[i].b) << ' ';
+        cout << ans[i] << ' ';
 }
 
 int main() {
