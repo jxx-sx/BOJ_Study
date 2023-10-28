@@ -78,6 +78,18 @@ void init() {
 }
 
 void solve() {
+    for (int i = 1; i <= n; i++) {
+        if (lotus[i].empty()) {
+            cout << "NO";
+            return;
+        }
+        for (int j = 0; j < lotus[i].size(); j++)
+            for (int k = j + 1; k < lotus[i].size(); k++) {
+                e[(lotus[i][j] << 1) | (frog[lotus[i][j]].a == i ? 0 : 1)].pb((lotus[i][k] << 1) | (frog[lotus[i][k]].a == i ? 1 : 0));
+                e[(lotus[i][k] << 1) | (frog[lotus[i][k]].a == i ? 0 : 1)].pb((lotus[i][j] << 1) | (frog[lotus[i][j]].a == i ? 1 : 0));
+            }
+    }
+
     tarjan();
 
     for (int i = 1; i <= n; i++) {
