@@ -93,6 +93,8 @@ void solve() {
     tarjan();
 
     for (int i = 1; i <= n; i++) {
+        if (frog[i].a == frog[i].b)
+            continue;
         if (scc[i << 1] == scc[i << 1 | 1]) {
             cout << "NO";
             return;
