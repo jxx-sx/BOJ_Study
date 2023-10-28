@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <vector>
 
@@ -74,7 +75,10 @@ void init() {
     cin >> n;
     for (int i = 1; i <= n; i++) {
         e[i * 10 + 3].pb(i * 10 + 9);
+        e[i * 10 + 4].pb(i * 10 + 2);
         e[i * 10 + 4].pb(i * 10 + 8);
+        e[i * 10 + 7].pb(i * 10 + 8);
+        e[i * 10 + 7].pb(i * 10 + 4);
         e[i * 10 + 8].pb(i * 10 + 4);
         e[i * 10 + 9].pb(i * 10 + 2);
         e[i * 10 + 9].pb(i * 10 + 3);
@@ -107,6 +111,7 @@ void solve() {
             if (scc[i * 10 + j] < scc[i * 10 + j + 5])
                 continue;
             ans[i] |= (1 << j);
+            assert(ans[i] < 8 || ans[i] > 19);
         }
     }
 
