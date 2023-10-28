@@ -73,14 +73,11 @@ void init() {
     char t;
     cin >> n;
     for (int i = 1; i <= n; i++) {
+        e[i * 10 + 3].pb(i * 10 + 9);
         e[i * 10 + 4].pb(i * 10 + 8);
         e[i * 10 + 8].pb(i * 10 + 4);
-
         e[i * 10 + 9].pb(i * 10 + 2);
-        e[i * 10 + 2].pb(i * 10 + 9);
-
         e[i * 10 + 9].pb(i * 10 + 3);
-        e[i * 10 + 3].pb(i * 10 + 9);
 
         cin >> a;
         if (!a)
