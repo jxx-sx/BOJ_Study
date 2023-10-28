@@ -75,7 +75,6 @@ void init() {
     cin >> n;
     for (int i = 1; i <= n; i++) {
         e[i * 10 + 3].pb(i * 10 + 9);
-        e[i * 10 + 4].pb(i * 10 + 2);
         e[i * 10 + 4].pb(i * 10 + 8);
         e[i * 10 + 7].pb(i * 10 + 8);
         e[i * 10 + 7].pb(i * 10 + 4);
@@ -108,11 +107,12 @@ void solve() {
                 cout << 0;
                 return;
             }
-            if (scc[i * 10 + j] < scc[i * 10 + j + 5])
-                continue;
-            ans[i] |= (1 << j);
-            assert(ans[i] < 8 || ans[i] > 19);
+            if (scc[i * 10 + j] > scc[i * 10 + j + 5])
+                ans[i] |= (1 << j);
+            // cout << scc[i * 10 + j] << ' ' << scc[i * 10 + j + 5] << endl;
         }
+        cout << i << ' ' << ans[i] << endl;
+        assert(8 <= ans[i] and ans[i] <= 19);
     }
 
     cout << 1 << '\n';
