@@ -60,6 +60,8 @@ void init() {
         lotus[frog[i].a].pb(i);
         if (frog[i].a != frog[i].b)
             lotus[frog[i].b].pb(i);
+        else
+            e[(i << 1) | 1].pb(i << 1);
     }
 
     while (m--) {
