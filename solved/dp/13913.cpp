@@ -13,7 +13,7 @@ void query(int x, int cur) {
         return;
     if (x > 200000)
         return;
-    if (arr[x].second)
+    if (arr[x].second != -1)
         return;
     arr[x].first = arr[cur].first + 1;
     arr[x].second = cur;
@@ -22,6 +22,8 @@ void query(int x, int cur) {
 
 void init() {
     cin >> n >> k;
+    for (int i = 0; i < 200001; i++)
+        arr[i].second = -1;
     arr[n].second = n;
     q.push(n);
 }
