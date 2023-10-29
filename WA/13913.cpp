@@ -37,15 +37,19 @@ void solve() {
         query(q.front() + 1, q.front());
         q.pop();
     }
+
+    int cur = k;
     cout << arr[k].first << '\n';
-    vector<int> st;
-    st.push_back(k);
-    while (st.back() != n)
-        st.push_back(arr[st.back()].second);
+    vector<int> st(arr[k].first);
+    for (auto &a : st) {
+        a = arr[cur].second;
+        cur = a;
+    }
     while (st.size()) {
         cout << st.back() << ' ';
         st.pop_back();
     }
+    cout << k;
 }
 
 int main() {
