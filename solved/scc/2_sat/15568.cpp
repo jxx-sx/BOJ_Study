@@ -54,7 +54,15 @@ void init() {
 
     for (int i = 1; i <= n; i++) {
         cin >> frog_lotus[i][0] >> frog_lotus[i][1];
+        for (auto k : lotus[frog_lotus[i][0]]) {
+            e[k].pb(i << 1 | 1);
+            e[i << 1].pb(k ^ 1);
+        }
         lotus[frog_lotus[i][0]].pb(i << 1);
+        for (auto k : lotus[frog_lotus[i][1]]) {
+            e[k].pb(i << 1);
+            e[i << 1 | 1].pb(k ^ 1);
+        }
         lotus[frog_lotus[i][1]].pb(i << 1 | 1);
     }
 
@@ -69,10 +77,11 @@ void init() {
             }
         }
     }
+    for (int i = 1; i <= n; i++) {
+    }
 }
 
 void solve() {
-
     tarjan();
 
     for (int i = 1; i <= n; i++) {
