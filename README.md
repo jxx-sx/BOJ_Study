@@ -11,14 +11,13 @@
 
 > CLASS 1++  
 > CLASS 2++  
-> CLASS 3+  
+> CLASS 3++  
 > CLASS 4+  
 > CLASS 5  
 > CLASS 6
 
 ## 도전중
 
-> CLASS 3++  
 > CLASS 4++  
 > CLASS 5+  
 > CLASS 6+  
