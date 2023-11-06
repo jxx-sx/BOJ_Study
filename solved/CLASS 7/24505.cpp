@@ -54,6 +54,7 @@ void init() {
     v.resize(n);
     for (int i = 0; i < n; i++) {
         cin >> v[i].first;
+        v[i].first *= -1;
         v[i].second = i;
     }
 
@@ -61,8 +62,10 @@ void init() {
 }
 
 void solve() {
-    for (auto a : v)
-        tree.update(a.second, 0, n - 1, 1);
+    while (v.size()) {
+        tree.update(v.back().second, 0, n - 1, 1);
+        v.pop_back();
+    }
     cout << tree.tree[1].arr[10];
 }
 
