@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -15,24 +16,27 @@ void init() {
 }
 
 void solve() {
-    int a;
+    vector<int> v;
     for (int i = 0; i < r; i++) {
+        int a;
         cin >> a;
         if (arr[a]) {
             arr[a] = false;
             continue;
         }
-        if (a > 0)
-            if (arr[a - 1]) {
-                arr[a - 1] = false;
-                continue;
-            }
-        if (a < 10)
-            if (arr[a + 1]) {
-                arr[a + 1] = false;
-                continue;
-            }
+        v.push_back(a);
     }
+    for (auto a : v) {
+        if (a - 1 > 0 and arr[a - 1]) {
+            arr[a - 1] = false;
+            continue;
+        }
+        if (a + 1 <= n and arr[a + 1]) {
+            arr[a + 1] = false;
+            continue;
+        }
+    }
+
     int ans = 0;
     for (int i = 0; i <= n; i++)
         if (arr[i])
