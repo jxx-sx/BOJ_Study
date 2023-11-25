@@ -1,5 +1,5 @@
 #include <iostream>
-#define MAX 1000
+#define MAX 1000000000
 
 using namespace std;
 int **arr;
