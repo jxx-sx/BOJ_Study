@@ -1,5 +1,13 @@
 #include <iostream>
 
+// #define OPTIMIZE
+
+#ifdef OPTIMIZE
+#pragma GCC optimize("O3")
+#pragma GCC optimize("Ofast")
+#pragma GCC optimize("unroll-loops")
+#endif
+
 using namespace std;
 
 void init() {}
