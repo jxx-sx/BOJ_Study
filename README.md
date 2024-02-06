@@ -6,21 +6,3 @@
 
 [![Solved.ac 프로필](http://mazassumnida.wtf/api/v2/generate_badge?boj=jaesang00)](https://solved.ac/jaesang00)
 ![Solved.ac 스트릭](http://mazandi.herokuapp.com/api?handle=jaesang00&theme=warm)
-
-## solved.ac CLASS
-
-> CLASS 1++  
-> CLASS 2++  
-> CLASS 3++  
-> CLASS 4+  
-> CLASS 5  
-> CLASS 6  
-> CLASS 7  
-
-## 도전중
-
-> CLASS 4++  
-> CLASS 5+  
-> CLASS 6+  
-> CLASS 7+  
-> CLASS 8  
