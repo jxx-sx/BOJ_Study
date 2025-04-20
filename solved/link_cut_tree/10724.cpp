@@ -78,6 +78,7 @@ void splay(Node *x) {
 void access(Node *x) {
     splay(x);
     x->r = nullptr;
+    x->update();
     for (; x->p; splay(x)) {
         splay(x->p);
         x->p->r = x;
